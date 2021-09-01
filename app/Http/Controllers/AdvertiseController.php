@@ -1,0 +1,126 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Advertise;
+use App\AdvertiseType;
+use App\Currency;
+use App\Http\Requests\AdvertiseRequest;
+use Ramsey\Uuid\Uuid;
+
+class AdvertiseController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $items = Advertise::all();
+
+        return view('pages.advertises.index',[
+            'items' => $items
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $advertise_types = AdvertiseType::all();
+        $currencies = Currency::all();
+
+        return view('pages.advertises.create')->with([
+            'advertise_types' => $advertise_types,
+            'currencies' => $currencies
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(AdvertiseRequest $request)
+    {
+        $data = $request->all();
+
+        $id = Uuid::uuid1()->toString();
+
+        Advertise::create($data);
+        return redirect()->route('advertises.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $item = Advertise::findOrFail($id);
+
+        return view('pages.advertises.detail',[
+            'item' => $item
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $item = Advertise::findOrFail($id);
+
+        $advertise_types = AdvertiseType::all();
+        $currencies = Currency::all();
+
+        return view('pages.advertises.edit',[
+            'item' => $item,
+            'advertise_types' => $advertise_types,
+            'currencies' => $currencies
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(AdvertiseRequest $request, $id)
+    {
+        $data = $request->all();
+
+        $item = Advertise::findOrFail($id);
+        
+        $item->update($data);
+
+        return redirect()->route('advertises.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $item =  Advertise::findOrFail($id);
+        $item->delete();
+
+        return redirect()->route('advertises.index');
+    }
+}
