@@ -33,7 +33,7 @@ class Project extends Model
     const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
-        // 'islandId','name','image'
+        'userId','code','name','cost'
     ];
 
     protected $keyType = 'string';
@@ -42,6 +42,10 @@ class Project extends Model
 
     public function project_specializations(){
         return $this->hasMany(ProjectSpecialization::class, 'projectId', 'id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'userId', 'id');
     }
 
 }

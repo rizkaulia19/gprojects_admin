@@ -28,6 +28,10 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class,'roleId', 'id');
     }
 
+    public function projects(){
+        return $this->hasMany(Project::class, 'userId', 'id');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

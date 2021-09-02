@@ -5,7 +5,7 @@
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     Dashboard
                 </a>
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('projects.index') }}">
                     Project
                 </a>
                 <a class="nav-link" href="{{ route('users.index') }}">
