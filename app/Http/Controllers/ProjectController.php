@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
+// use App\User;
 // use App\Http\Requests\RoleRequest;
 use Ramsey\Uuid\Uuid;
 
@@ -16,8 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        // $items = Project::with(['user'])->where('role');
-        $items = Project::all();
+        $items = Project::with(['user'])->get();
 
         return view('pages.projects.index',[
             'items' => $items

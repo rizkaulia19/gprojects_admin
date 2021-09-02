@@ -46,9 +46,25 @@
                                 <td>{{ $item->code }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->cost }}</td>
-                                <td>{{ $item->user->name }}</td>
-                                <td>{{ $item->user->role->name }}</td>
-                                <td></td>
+                                <td>
+                                @if($item->user->isGpro)
+                                    {{ $item->user->name}}
+                                @else
+                                @endif
+                                </td>
+                                <td>
+                                @if(!$item->user->isGpro)
+                                    {{ $item->user->name}}
+                                @else
+                                @endif
+                                </td>
+                                <td>
+                                @if(!$item->isAvailable)
+                                    NOT AVAILABLE
+                                @else
+                                    AVAILABLE
+                                @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('projects.show', $item->id) }}" class="btn btn-info btn-sm">
                                         <i class="fa fa-eye"></i>

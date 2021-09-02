@@ -32,6 +32,7 @@
                         <label for="advertiseTypeId" class="form-control-label">Advertise Type</label>
                         <select name="advertiseTypeId"
                                 class="form-control @error('advertiseTypeId') is-invalid @enderror">
+                            <option selected>Choose Type</option>
                             @foreach ($advertise_types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                             @endforeach
@@ -42,7 +43,8 @@
                         <label for="currencyId" class="form-control-label">Currency</label>
                         <select name="currencyId"
                                 class="form-control @error('currencyId') is-invalid @enderror">
-                            @foreach ($currencies as $currency)
+                                <option selected>Choose Currency</option>
+                                @foreach ($currencies as $currency)
                             <option value="{{ $currency->id }}">{{ $currency->name }}</option>
                             @endforeach
                         </select>
