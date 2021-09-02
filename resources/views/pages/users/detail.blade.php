@@ -33,7 +33,7 @@
                         <td>{{ $item->nik }}</td>
                     </tr>
                     <tr>
-                        <th>username</th>
+                        <th>Username</th>
                         <td>{{ $item->username }}</td>
                     </tr>
                     <tr>
@@ -58,7 +58,7 @@
                     </tr>
                     <tr>
                         <th>Rating GClient</th>
-                        <td></td>
+                        <td>{{ $item->ratingAsGClient}}</td>
                     </tr>
                 </table>
             </div>

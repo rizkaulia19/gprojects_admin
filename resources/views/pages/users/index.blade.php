@@ -7,6 +7,9 @@
     <div class="container-fluid px-4">
         <div class="d-sm-flex align-items-center justify-content-between">
             <h1 class="mt-4">User</h1>
+            <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-plus text-white-50"></i> Create User
+            </a>
         </div>
         <div class="card">
             <div class="card-body">
@@ -44,6 +47,17 @@
                                     <a href="{{ route('users.show', $item->id) }}" class="btn btn-info btn-sm">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    <a href="{{ route('users.edit', $item->id) }}" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </a>
+                                    <form action="{{ route('users.destroy', $item->id) }}" method="post"
+                                        class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm"  onclick="return confirm('Delete &quot;{{ $item->name }}&quot;?')">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @empty
