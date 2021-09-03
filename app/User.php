@@ -54,6 +54,14 @@ class User extends Authenticatable
         return $this->hasMany(Project::class, 'userId', 'id');
     }
 
+    public function project_applicants(){
+        return $this->hasMany(ProjectApplicant::class, 'userId', 'id');
+    }
+
+    public function project_activities(){
+        return $this->hasMany(ProjectActivity::class, 'userId', 'id');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

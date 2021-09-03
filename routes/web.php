@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
 Route::resource('projects', 'ProjectController');
+Route::resource('project-activities', 'ProjectActivityController');
 Route::resource('users', 'UserController');
 Route::resource('specializations', 'SpecializationController');
 Route::resource('roles', 'RoleController');

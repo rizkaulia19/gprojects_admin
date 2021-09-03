@@ -3,7 +3,6 @@
 @section('title','Users')
 
 @section('content')
-
 <main>
     <div class="container-fluid px-4">
         <div class="d-sm-flex align-items-center justify-content-between">

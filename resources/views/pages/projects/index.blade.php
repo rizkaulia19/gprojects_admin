@@ -32,10 +32,10 @@
                             <th>Code</th>
                             <th>Name</th>
                             <th>Cost</th>
-                            <th>User</th>
-                            <th>Role</th>
+                            <th>GPro</th>
+                            <th>GClient</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th width="12%">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -46,25 +46,9 @@
                                 <td>{{ $item->code }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->cost }}</td>
-                                <td>
-                                @if($item->user->isGpro)
-                                    {{ $item->user->name}}
-                                @else
-                                @endif
-                                </td>
-                                <td>
-                                @if(!$item->user->isGpro)
-                                    {{ $item->user->name}}
-                                @else
-                                @endif
-                                </td>
-                                <td>
-                                @if(!$item->isAvailable)
-                                    NOT AVAILABLE
-                                @else
-                                    AVAILABLE
-                                @endif
-                                </td>
+                                <td>{{ $item->user->name}}</td>
+                                <td>{{ $item->project_applicants->status }}</td>
+                                <td>{{ $item->project_applicants->status }}</td>
                                 <td>
                                     <a href="{{ route('projects.show', $item->id) }}" class="btn btn-info btn-sm">
                                         <i class="fa fa-eye"></i>

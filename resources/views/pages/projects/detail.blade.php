@@ -8,7 +8,7 @@
         <div class="d-sm-flex align-items-center justify-content-between">
             <h3 class="mt-4">Project {{ $item->name }}</h3>
         </div>
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-body">
                 <table class="table">
                     <tr>
@@ -51,6 +51,61 @@
                         Delete
                     </button>
                 </form>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                Activities
+            </div>
+            <div class="card-body">
+                <a href="{{ route('projects.create') }}" class="btn btn-sm btn-primary shadow-sm mb-3">
+                    <i class="fas fa-plus text-white-50"></i> Create Activity
+                </a>
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>User</th>
+                            <th>Confirmed</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>User</th>
+                            <th>Confirmed</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <?php $i = 0; ?>
+                        @forelse ($item->project_activities as $activity)
+                            <tr>
+                                <td>{{ ++$i }}</td>
+                                <td>{{ $activity->name }}</td>
+                                <td>{{ $activity->description }}</td>
+                                <td>
+                                    <?php 
+                                    $type = str_replace("_"," ", $activity->type);
+                                    $type = ucwords($type);
+                                    ?>
+                                    {{ $type }}
+                                </td>
+                                <td>{{ $activity->user->name }}</td>
+                                <td>{{ $activity->isConfirmed ? 'Yes' : 'No' }}</td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center">No Entries</td>
+                            </tr>
+                            @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

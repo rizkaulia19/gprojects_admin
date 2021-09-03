@@ -3,36 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Project;
 use App\ProjectActivity;
-use App\ProjectApplicant;
-// use Ramsey\Uuid\Uuid;
+// use App\Http\Requests\RoleRequest;
+use Ramsey\Uuid\Uuid;
 
-class ProjectController extends Controller
+class ProjectActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $items = Project::with(['project_applicants'])->where('project_applicants.updatedAt', max(['project_applicants.updatedAt']))->get();
+    // public function index()
+    // {
+    //     $items = Project::with(['user'])->get();
 
-        return view('pages.projects.index',[
-            'items' => $items
-        ]);
-    }
+    //     return view('pages.projects.index',[
+    //         'items' => $items
+    //     ]);
+    // }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    // public function create($id)
-    // {
-    //     return view('pages.roles.create');
-    // }
+    public function create($id)
+    {
+        $item =  Project::findOrFail($id);
+
+        return view('pages.projects.create',[
+            'item' => $item
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,15 +43,15 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(RoleRequest $request)
-    // {
-    //     $data = $request->all();
+    public function store(RoleRequest $request)
+    {
+        $data = $request->all();
 
-    //     $id = Uuid::uuid1()->toString();
+        $id = Uuid::uuid1()->toString();
 
-    //     Role::create($data);
-    //     return redirect()->route('roles.index');
-    // }
+        Role::create($data);
+        return redirect()->route('roles.index');
+    }
 
     /**
      * Display the specified resource.
@@ -56,14 +59,14 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $item = Project::with(['project_activities'])->findOrFail($id);
+    // public function show($id)
+    // {
+    //     $item = Project::with(['project_activities'])->findOrFail($id);
 
-        return view('pages.projects.detail',[
-            'item' => $item
-        ]);
-    }
+    //     return view('pages.projects.detail',[
+    //         'item' => $item
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.

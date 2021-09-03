@@ -32,6 +32,7 @@
                         <label for="paymentGatewayId" class="form-control-label">Payment Gateway</label>
                         <select name="paymentGatewayId"
                                 class="form-control @error('paymentGatewayId') is-invalid @enderror">
+                            <option selected>Choose payment gateway</option>
                             @foreach ($payment_gateways as $pg)
                             <option value="{{ $pg->id }}">{{ $pg->name }}</option>
                             @endforeach
@@ -42,6 +43,7 @@
                         <label for="paymentTypeCategoryId" class="form-control-label">Payment Type Category</label>
                         <select name="paymentTypeCategoryId"
                                 class="form-control @error('paymentTypeCategoryId') is-invalid @enderror">
+                            <option selected>Choose category</option>
                             @foreach ($payment_type_categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach

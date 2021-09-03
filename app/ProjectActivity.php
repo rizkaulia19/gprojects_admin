@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasUuid;
 
-class Project extends Model
+class ProjectActivity extends Model
 {
 
     use SoftDeletes, HasUuid;
@@ -33,27 +33,18 @@ class Project extends Model
     const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
-        'userId','code','name','cost'
+        'userId','projectId','name','description','type','isConfirmed'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
 
-    public function project_specializations(){
-        return $this->hasMany(ProjectSpecialization::class, 'projectId', 'id');
-    }
-
     public function user(){
         return $this->belongsTo(User::class,'userId', 'id');
     }
 
-    public function project_activities(){
-        return $this->hasMany(ProjectActivity::class, 'projectId', 'id');
+    public function project(){
+        return $this->belongsTo(Project::class,'projectId', 'id');
     }
-
-    public function project_applicants(){
-        return $this->hasMany(ProjectApplicant::class, 'projectId', 'id');
-    }
-
 }
