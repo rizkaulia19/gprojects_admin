@@ -53,7 +53,7 @@ class Project extends Model
     }
 
     public function project_applicants(){
-        return $this->hasMany(ProjectApplicant::class, 'projectId', 'id');
+        return $this->hasMany(ProjectApplicant::class, 'projectId', 'id')->orderBy('updatedAt','DESC');
     }
 
 }

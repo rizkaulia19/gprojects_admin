@@ -58,7 +58,9 @@
                                 </td>
                             </tr>
                             @empty
-                            <tr></tr>
+                            <tr>
+                                <td colspan="5" class="text-center">No entries found</td>
+                            </tr>
                             @endforelse
                     </tbody>
                 </table>

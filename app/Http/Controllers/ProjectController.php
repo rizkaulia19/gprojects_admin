@@ -17,12 +17,32 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $items = Project::with(['project_applicants'])->where('project_applicants.updatedAt', max(['project_applicants.updatedAt']))->get();
+        $items = Project::with(['project_applicants'])->get(); 
+
+        // foreach($items as $project){
+        //     $project['applicants_name'] = $project->project_applicants->name->last();
+        // }
+
+        // $items = Project::select('projects.*')
+        //     ->join('project_applicants', 'project_applicants.projectId', '=', 'projects.id')
+        //     ->groupBy('projects.id')
+        //     ->orderByRaw('max(project_applicants.updatedAt) desc')
+        //     ->get();
 
         return view('pages.projects.index',[
             'items' => $items
         ]);
     }
+
+    // public function scopeOrderByLastUpdatedAtProjectApplicant($query, $direction = 'desc')
+    // {
+    //     $query->orderBy(Login::select('updatedAt')
+    //         ->whereColumn('project_applicants.projectId', 'projects.id')
+    //         ->latest()
+    //         ->take(1),
+    //         $direction
+    //     );
+    // }
 
     /**
      * Show the form for creating a new resource.
