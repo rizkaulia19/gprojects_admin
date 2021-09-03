@@ -49,9 +49,14 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->cost }}</td>
                                 <td>{{ $item->user->name}}</td>
+                                
                                 @if ($item->project_applicants->count())
                                 <td>{{ $item->project_applicants->first()->user->name }}</td>
-                                <td>{{ $item->project_applicants->first()->status }}</td>
+                                <?php 
+                                $status = str_replace("_"," ", $item->project_applicants->first()->status);
+                                $status = ucwords($status);
+                                ?>
+                                <td>{{ $status }}</td>
                                 
                                 @else
                                 <td></td>
