@@ -43,4 +43,8 @@ class Specialization extends Model
     public function project_specializations(){
         return $this->hasMany(ProjectSpecialization::class, 'specializationId', 'id');
     }
+
+    public function user_specializations(){
+        return $this->hasMany(UserSpecialization::class, 'specializationId', 'id');
+    }
 }

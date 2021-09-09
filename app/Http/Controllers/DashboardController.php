@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\User;
 use App\ProjectApplicant;
 use App\Specialization;
-use App\ProjectSpecialization;
 
 class DashboardController extends Controller
 {
@@ -14,25 +13,28 @@ class DashboardController extends Controller
     {
         $count_total_user = User::where('roleId','=','c7315ccc-c8c9-4e70-9b29-eedc9c872fa7')->orWhere('roleId','=','a0087d9f-5830-4878-9d23-fe99cfbe63e9')->count();
         $count_total_proyek = ProjectApplicant::where('status','=','succeed')->orWhere('status','=','waiting_approval')->count();
-        $count_total_proyek_aktif = ProjectApplicant::Where('status','=','waiting_approval')->count();
-        $count_total_proyek_cancel = ProjectApplicant::Where('status','=','canceled')->count();
+        $count_total_proyek_aktif = ProjectApplicant::where('status','=','waiting_approval')->count();
+        $count_total_proyek_cancel = ProjectApplicant::where('status','=','canceled')->count();
 
-        //Pie Chart
+        //Pie Chart Perbandingan User
         $count_user_gpro = User::where('roleId','=','c7315ccc-c8c9-4e70-9b29-eedc9c872fa7')->count();
         $count_user_gclient = User::where('roleId','=','a0087d9f-5830-4878-9d23-fe99cfbe63e9')->count();
 
-        //Keahlian
-        // $specialization = Specialization::with(['project_specializations'])->take(10)->get();
+        //Pie Chart Keahlian yang dibutuhkan
+        $specialization_project = Specialization::withCount('project_specializations') 
+            ->orderBy('project_specializations_count','DESC')
+            ->limit(10) 
+            ->get();
 
-        // foreach ($specializations as $specialization){
-        //     echo $specialization->specialization;
-        // }
+        //Pie Chart Keahlian tersedia
+        $specialization_user = Specialization::withCount('user_specializations') 
+            ->orderBy('user_specializations_count','DESC')
+            ->limit(10) 
+            ->get();
 
-        $specialization = ProjectSpecialization::selectRaw('*, count(id) as spec_count')
-        ->groupBy('project_specializations.id')
-        // ->orderBy('spec_count', 'asc')
-        // ->take(10)
-        ->count();
+        //Chart Area Total User yang mendaftar
+        // $user_create = User::withCount('user_specializations') 
+        //     ->get();
 
         //Total user perbulan
         // $monthly_user = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
@@ -57,8 +59,8 @@ class DashboardController extends Controller
             'count_total_proyek_cancel' => $count_total_proyek_cancel,
             'count_user_gpro' => $count_user_gpro,
             'count_user_gclient' => $count_user_gclient,
-            'specialization' => $specialization
-            
+            'specialization_project' => $specialization_project,
+            'specialization_user' => $specialization_user
             ] );
     }   
 }

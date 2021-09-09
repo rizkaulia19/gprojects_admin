@@ -39,7 +39,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'code','name', 'phone', 'roleId', 'username', 'email', 'nik', 'address', 'isGpro', 'bio', 'gender', 'birthdate'
+        'code','name', 'phone', 'roleId', 'username','password', 'email', 'nik', 'address', 'isGpro', 'bio', 'gender', 'birthdate'
     ];
 
     protected $keyType = 'string';
@@ -60,6 +60,10 @@ class User extends Authenticatable
 
     public function project_activities(){
         return $this->hasMany(ProjectActivity::class, 'userId', 'id');
+    }
+
+    public function user_specializations(){
+        return $this->hasMany(UserSpecialization::class, 'userId', 'id');
     }
 
     /**
