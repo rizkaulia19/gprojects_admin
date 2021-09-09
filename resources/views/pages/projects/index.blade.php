@@ -23,8 +23,7 @@
                             <th>GClient</th>
                             <th>GPro</th>
                             <th>Status</th>
-                            <!-- <th>Update</th> -->
-                            <th width="12%">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -36,8 +35,7 @@
                             <th>GClient</th>
                             <th>GPro</th>
                             <th>Status</th>
-                            <!-- <th>Update</th> -->
-                            <th width="12%">Action</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -49,35 +47,21 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->cost }}</td>
                                 <td>{{ $item->user->name}}</td>
-                                
                                 @if ($item->project_applicants->count())
                                 <td>{{ $item->project_applicants->first()->user->name }}</td>
                                 <?php 
                                 $status = str_replace("_"," ", $item->project_applicants->first()->status);
                                 $status = ucwords($status);
                                 ?>
-                                <td>{{ $status }}</td>
-                                
+                                <td>{{ $status }}</td>   
                                 @else
                                 <td></td>
                                 <td></td>
-                                
                                 @endif
                                 <td>
                                     <a href="{{ route('projects.show', $item->id) }}" class="btn btn-info btn-sm">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('projects.edit', $item->id) }}" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-pencil-alt"></i>
-                                    </a>
-                                    <form action="{{ route('projects.destroy', $item->id) }}" method="post"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm"  onclick="return confirm('Delete &quot;{{ $item->name }}&quot;?')">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                             @empty
