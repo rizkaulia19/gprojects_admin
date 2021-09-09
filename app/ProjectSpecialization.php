@@ -8,6 +8,8 @@ use App\Traits\HasUuid;
 
 class ProjectSpecialization extends Model
 {
+    protected $keyType = 'string';
+    
     public function specialization(){
         return $this->belongsTo(Specialization::class,'specializationId', 'id');
     }

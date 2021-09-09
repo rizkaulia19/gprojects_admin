@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\ProjectApplicant;
+use App\Specialization;
+use App\ProjectSpecialization;
 
 class DashboardController extends Controller
 {
@@ -18,6 +20,19 @@ class DashboardController extends Controller
         //Pie Chart
         $count_user_gpro = User::where('roleId','=','c7315ccc-c8c9-4e70-9b29-eedc9c872fa7')->count();
         $count_user_gclient = User::where('roleId','=','a0087d9f-5830-4878-9d23-fe99cfbe63e9')->count();
+
+        //Keahlian
+        // $specialization = Specialization::with(['project_specializations'])->take(10)->get();
+
+        // foreach ($specializations as $specialization){
+        //     echo $specialization->specialization;
+        // }
+
+        $specialization = ProjectSpecialization::selectRaw('*, count(id) as spec_count')
+        ->groupBy('project_specializations.id')
+        // ->orderBy('spec_count', 'asc')
+        // ->take(10)
+        ->count();
 
         //Total user perbulan
         // $monthly_user = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
@@ -35,6 +50,15 @@ class DashboardController extends Controller
      
         // $data['chart_data'] = json_encode($data);
         
-        return view('pages.dashboard', ['count_total_user' => $count_total_user, 'count_total_proyek' => $count_total_proyek, 'count_total_proyek_aktif' => $count_total_proyek_aktif, 'count_total_proyek_cancel' => $count_total_proyek_cancel, 'count_user_gpro' => $count_user_gpro, 'count_user_gclient' => $count_user_gclient] );
+        return view('pages.dashboard', [
+            'count_total_user' => $count_total_user,
+            'count_total_proyek' => $count_total_proyek,
+            'count_total_proyek_aktif' => $count_total_proyek_aktif,
+            'count_total_proyek_cancel' => $count_total_proyek_cancel,
+            'count_user_gpro' => $count_user_gpro,
+            'count_user_gclient' => $count_user_gclient,
+            'specialization' => $specialization
+            
+            ] );
     }   
 }

@@ -145,8 +145,8 @@
             data: {
                 labels: ["Gpro", "Gclient"],
                 datasets: [{
-                data: [{{$count_user_gpro}}, {{$count_user_gclient}}],
-                backgroundColor: ['#007bff', '#dc3545'],
+                data: [@forelse(@if($specialization->project_specializations->count()) as $spec) {{@spec}} @endif @endforelse],
+                backgroundColor: ['#007bff', '#dc3545', '#ffe338'],
                 }],
             },
         });
