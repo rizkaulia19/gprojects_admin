@@ -4,7 +4,7 @@
 
 @section('content')
 <main>
-    <div class="container-fluid">
+    <div class="container-fluid px-4">
         <h2 class="mt-4 mb-4">Your progress today</h2>
         <div class="row">
             <div class="col-xl-4 col-md-6">
@@ -72,59 +72,63 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid px-2">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-pie me-1"></i>
-                            Keahlian yang dibutuhkan
-                        </div>
-                        <div class="card-body"><canvas id="pie_chart_keahlian_butuh" width="100%" height="50"></canvas>
-                        </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-pie me-1"></i>
+                        Keahlian yang dibutuhkan
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-pie me-1"></i>
-                            Keahlian tersedia
-                        </div>
-                        <div class="card-body"><canvas id="pie_chart_keahlian_tersedia" width="100%"
-                                height="50"></canvas></div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                    <div class="card-body"><canvas id="pie_chart_keahlian_butuh" width="100%" height="50"></canvas>
                     </div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                 </div>
             </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-area me-1"></i>
-                    Total User yang mendaftar
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-pie me-1"></i>
+                        Keahlian tersedia
+                    </div>
+                    <div class="card-body"><canvas id="pie_chart_keahlian_tersedia" width="100%"
+                            height="50"></canvas></div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                 </div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
             </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-bar me-1"></i>
-                            Kota terbanyak sebagai titik coin
-                        </div>
-                        <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area me-1"></i>
+                Total User yang mendaftar
+            </div>
+            <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area me-1"></i>
+                Total Transaksi
+            </div>
+            <div class="card-body"><canvas id="transactionAmountChart" width="100%" height="30"></canvas></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Kota terbanyak sebagai titik coin
                     </div>
+                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-pie me-1"></i>
-                            Perbandingan User
-                        </div>
-                        <div class="card-body"><canvas id="pie_chart_user" width="100%" height="50"></canvas></div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-pie me-1"></i>
+                        Perbandingan User
                     </div>
+                    <div class="card-body"><canvas id="pie_chart_user" width="100%" height="50"></canvas></div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                 </div>
             </div>
         </div>
@@ -270,6 +274,22 @@ var myLineChart = new Chart(ctx, {
         legend: {
             display: false
         }
+    }
+});
+
+//Chart line total transaksi
+var ctx = document.getElementById("transactionAmountChart");
+var transactionAmountChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["Mar 10", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7"],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0
+        }],
     }
 });
 </script>

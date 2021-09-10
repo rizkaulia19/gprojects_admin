@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\ProjectApplicant;
 use App\Specialization;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -33,15 +34,9 @@ class DashboardController extends Controller
             ->get();
 
         //Chart Area Total User yang mendaftar
-        // $user_create = User::withCount('user_specializations') 
+        // $monthly_user = User::select(DB::raw('MONTH(updatedAt) as month'), DB::raw('count(*) as user')) 
+        //     ->groupBy('month') 
         //     ->get();
-
-        //Total user perbulan
-        // $monthly_user = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
-        // ->where('created_at', '>', Carbon::today()->subDay(6))
-        // ->groupBy('day_name','day')
-        // ->orderBy('day')
-        // ->get();
 
         // $data = [];
 

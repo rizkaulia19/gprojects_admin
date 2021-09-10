@@ -39,12 +39,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'code','name', 'phone', 'roleId', 'username','password', 'email', 'nik', 'address', 'isGpro', 'bio', 'gender', 'birthdate'
+        'code','name', 'phone', 'roleId', 'username','password', 'email', 'nik', 'address', 'isGpro', 'bio', 'gender', 'birthdate','createdAt'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
+
+    public $timestamps = false;
 
     public function role(){
         return $this->belongsTo(Role::class,'roleId', 'id');
