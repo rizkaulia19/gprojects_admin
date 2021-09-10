@@ -99,15 +99,28 @@
             </div>
             <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
         </div>
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-chart-area me-1"></i>
-                Total Transaksi
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line me-1"></i>
+                        Total Transaksi
+                    </div>
+                <div class="card-body"><canvas id="transactionSumChart" width="100%" ></canvas></div>
+            <div class="card-footer small text-muted">Total: {{ number_format($transaction_sum['total']) }}</div>
             </div>
-            <div class="card-body"><canvas id="transactionAmountChart" width="100%" height="30"></canvas></div>
-            <div class="card-footer small text-muted">Total: {{ number_format($transaction_amount['total']) }}</div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line me-1"></i>
+                        Jumlah Transaksi
+                    </div>
+                    <div class="card-body"><canvas id="transactionCountChart" width="100%"></canvas></div>
+                    <div class="card-footer small text-muted">Jumlah: {{ number_format($transaction_count['total']) }}</div>
+                </div>
+            </div>
         </div>
-       
     </div>
 </main>
 
@@ -278,18 +291,18 @@ var myLineChart = new Chart(ctx, {
 });
 
 //Chart line total transaksi
-var ctx = document.getElementById("transactionAmountChart");
-var transactionAmountChart = new Chart(ctx, {
+var ctx = document.getElementById("transactionSumChart");
+var transactionSumChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: ["Subscription", "Advertise", "Top Up", "Withdraw", "Project"],
         datasets: [{
             data: [
-                {{ $transaction_amount['subscription'] }},
-                {{ $transaction_amount['advertise'] }},
-                {{ $transaction_amount['top_Up'] }},
-                {{ $transaction_amount['withdraw'] }},
-                {{ $transaction_amount['project'] }}
+                {{ $transaction_sum['subscription'] }},
+                {{ $transaction_sum['advertise'] }},
+                {{ $transaction_sum['top_Up'] }},
+                {{ $transaction_sum['withdraw'] }},
+                {{ $transaction_sum['project'] }}
             ],
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
@@ -307,10 +320,55 @@ var transactionAmountChart = new Chart(ctx, {
                 }
             }]
         },
-        tooltips: { 
+        tooltips: {
+            displayColors: false,
             callbacks: { 
                 label: function(tooltipItem, data) { 
                     return 'Total Transaksi: '+tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                },
+            }, 
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+
+//Chart line jumlah transaksi
+var ctx = document.getElementById("transactionCountChart");
+var transactionCountChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["Subscription", "Advertise", "Top Up", "Withdraw", "Project"],
+        datasets: [{
+            data: [
+                {{ $transaction_count['subscription'] }},
+                {{ $transaction_count['advertise'] }},
+                {{ $transaction_count['top_Up'] }},
+                {{ $transaction_count['withdraw'] }},
+                {{ $transaction_count['project'] }}
+            ],
+            fill: false,
+            borderColor: '#F23BAD',
+            tension: 0
+        }],
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(label, index, labels) {
+                        return Intl.NumberFormat().format(label);
+                    }
+                }
+            }]
+        },
+        tooltips: {
+            displayColors: false,
+            callbacks: { 
+                label: function(tooltipItem, data) { 
+                    return 'Jumlah Transaksi: '+tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 },
             }, 
         },
