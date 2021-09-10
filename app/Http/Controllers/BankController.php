@@ -47,7 +47,7 @@ class BankController extends Controller
         $data['image'] = '';
 
         Bank::create($data);
-        return redirect()->route('banks.index');
+        return redirect()->route('banks.index')->with('success', 'Bank created successfully!');
     }
 
     /**

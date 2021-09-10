@@ -47,7 +47,7 @@ class AdvertiseTypeController extends Controller
         $id = Uuid::uuid1()->toString();
 
         AdvertiseType::create($data);
-        return redirect()->route('advertise-types.index');
+        return redirect()->route('advertise-types.index')->with('success', 'Advertise Type created successfully!');
     }
 
     /**

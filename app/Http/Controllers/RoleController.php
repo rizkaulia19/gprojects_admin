@@ -46,7 +46,7 @@ class RoleController extends Controller
         $id = Uuid::uuid1()->toString();
 
         Role::create($data);
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('success', 'Role created successfully!');
     }
 
     /**

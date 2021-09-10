@@ -46,7 +46,7 @@ class PaymentGatewayController extends Controller
         $id = Uuid::uuid1()->toString();
 
         PaymentGateway::create($data);
-        return redirect()->route('payment-gateways.index');
+        return redirect()->route('payment-gateways.index')->with('success', 'Payment Gateway created successfully!');
     }
 
     /**

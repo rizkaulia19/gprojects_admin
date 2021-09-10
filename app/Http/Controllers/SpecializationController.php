@@ -48,7 +48,7 @@ class SpecializationController extends Controller
         $data['islandId'] = '5d71c2b9-c9bd-4242-9dd9-195f08fe088f';
 
         Specialization::create($data);
-        return redirect()->route('specializations.index');
+        return redirect()->route('specializations.index')->with('success', 'Specialization created successfully!');
     }
 
     /**
