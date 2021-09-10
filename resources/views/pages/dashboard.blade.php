@@ -7,41 +7,8 @@
     <div class="container-fluid px-4">
         <h2 class="mt-4 mb-4">Your progress today</h2>
         <div class="row">
-            <div class="col-xl-4 col-md-6">
+            <div class="col-xl-3 col-md-6">
                 <div class="card bg-primary text-white mb-4">
-                    <div class="card-body">
-                        <h2>{{$count_total_user}}</h2>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        Total User (GPro & GCLient)
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="card bg-warning text-white mb-4">
-                    <div class="card-body">
-                        <h2>-</h2>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        Total Transaksi
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="card bg-success text-white mb-4">
-                    <div class="card-body">
-                        <h2>-</h2>
-                    </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        Total Amount Transaksi
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-4 col-md-6">
-                <div class="card bg-secondary text-white mb-4">
                     <div class="card-body">
                         <h2>{{$count_total_proyek}}</h2>
                     </div>
@@ -50,25 +17,56 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="card bg-danger text-white mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
                     <div class="card-body">
                         <h2>{{$count_total_proyek_aktif}}</h2>
                     </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        Total Proyek Aktif
-
+                    <div class="card-footer d-flex align-items-center">
+                    Total Proyek&nbsp;<b>Aktif</b> 
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="card bg-info text-white mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">
+                        <h2>{{$count_total_proyek_sukses}}</h2>
+                    </div>
+                    <div class="card-footer d-flex align-items-center">
+                        Total Proyek&nbsp;<b>Sukses</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
                     <div class="card-body">
                         <h2>{{$count_total_proyek_cancel}}</h2>
                     </div>
-                    <div class="card-footer d-flex align-items-center justify-content-between">
-                        Total Proyek Cancel
+                    <div class="card-footer d-flex align-items-center">
+                        Total Proyek&nbsp;<b>Cancel</b>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Kota terbanyak sebagai titik coin
+                    </div>
+                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-pie me-1"></i>
+                        Perbandingan User
+                    </div>
+                    <div class="card-body"><canvas id="pie_chart_user" width="100%" height="50"></canvas></div>
+                    <div class="card-footer small text-muted">Total User :&nbsp;<b>{{$count_total_user}}</b></div>
                 </div>
             </div>
         </div>
@@ -110,28 +108,7 @@
             </div>
             <div class="card-body"><canvas id="transactionAmountChart" width="100%" height="30"></canvas></div>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-chart-bar me-1"></i>
-                        Kota terbanyak sebagai titik coin
-                    </div>
-                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-chart-pie me-1"></i>
-                        Perbandingan User
-                    </div>
-                    <div class="card-body"><canvas id="pie_chart_user" width="100%" height="50"></canvas></div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                </div>
-            </div>
-        </div>
+       
     </div>
 </main>
 

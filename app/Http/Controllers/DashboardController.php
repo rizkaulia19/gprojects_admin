@@ -16,6 +16,7 @@ class DashboardController extends Controller
         $count_total_proyek = ProjectApplicant::where('status','=','succeed')->orWhere('status','=','waiting_approval')->count();
         $count_total_proyek_aktif = ProjectApplicant::where('status','=','waiting_approval')->count();
         $count_total_proyek_cancel = ProjectApplicant::where('status','=','canceled')->count();
+        $count_total_proyek_sukses = ProjectApplicant::where('status','=','succeed')->count();
 
         //Pie Chart Perbandingan User
         $count_user_gpro = User::where('roleId','=','c7315ccc-c8c9-4e70-9b29-eedc9c872fa7')->count();
@@ -52,6 +53,7 @@ class DashboardController extends Controller
             'count_total_proyek' => $count_total_proyek,
             'count_total_proyek_aktif' => $count_total_proyek_aktif,
             'count_total_proyek_cancel' => $count_total_proyek_cancel,
+            'count_total_proyek_sukses' => $count_total_proyek_sukses,
             'count_user_gpro' => $count_user_gpro,
             'count_user_gclient' => $count_user_gclient,
             'specialization_project' => $specialization_project,
