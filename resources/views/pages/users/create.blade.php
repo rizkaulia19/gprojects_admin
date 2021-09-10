@@ -10,6 +10,15 @@
         </div>
         <div class="card">
             <div class="card-body">
+            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                 <form action="{{ route('users.store') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
@@ -79,6 +88,14 @@
                                 value="{{ old('username') }}" 
                                 class="form-control @error('username') is-invalid @enderror"/>
                         @error('username') <div class="text-muted">{{ $message }}</div> @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-control-label">Password</label>
+                        <input  type="password"
+                                name="password" 
+                                value="{{ old('password') }}" 
+                                class="form-control @error('password') is-invalid @enderror"/>
+                        @error('password') <div class="text-muted">{{ $message }}</div> @enderror
                     </div>
                     <div class="form-group mb-3">
                         <label for="email" class="form-control-label">Email</label>

@@ -68,8 +68,23 @@ class UserController extends Controller
         $id = Uuid::uuid1()->toString();
         $data['islandId'] = '5d71c2b9-c9bd-4242-9dd9-195f08fe088f';
 
+        // $data['password'] = Hash::make($data['password']);
+
+        //Validate
+        $request->validate([
+            'code' => 'required|unique:users',
+            'roleId' => 'required',
+            'name' => 'required',
+            'gender' => 'required',
+            'nik' => 'required|min:16|unique:users|numeric',
+            'username' => 'required|min:4|unique:users',
+            'password' => 'required|min:6',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required|min:11|numeric|unique:users'
+        ]);
+
         User::create($data);
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'User created successfully!');
     }
 
     /**
