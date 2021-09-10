@@ -79,7 +79,6 @@
                     </div>
                     <div class="card-body"><canvas id="pie_chart_keahlian_butuh" width="100%" height="50"></canvas>
                     </div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -90,7 +89,6 @@
                     </div>
                     <div class="card-body"><canvas id="pie_chart_keahlian_tersedia" width="100%"
                             height="50"></canvas></div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                 </div>
             </div>
         </div>
@@ -107,6 +105,7 @@
                 Total Transaksi
             </div>
             <div class="card-body"><canvas id="transactionAmountChart" width="100%" height="30"></canvas></div>
+            <div class="card-footer small text-muted">Total: {{ number_format($transaction_amount['total']) }}</div>
         </div>
        
     </div>
@@ -163,7 +162,19 @@ var pie_chart_keahlian_butuh = new Chart(ctx, {
                 {{$specialization_project[8]->project_specializations_count}},
                 {{$specialization_project[9]->project_specializations_count}},
             ],
-            backgroundColor: ['#0404fc','#ff5722','#60BD68','#F17CB0','#4D4D4D','#5DA5DA','#B2912F','#9c27b0','#fcf404','#F15854'],
+            backgroundColor: [
+                // '#0404fc','#ff5722','#60BD68','#F17CB0','#4D4D4D','#5DA5DA','#B2912F','#9c27b0','#fcf404','#F15854',
+                '{{$specialization_user[0]->color}}',
+                '{{$specialization_user[1]->color}}',
+                '{{$specialization_user[2]->color}}',
+                '{{$specialization_user[3]->color}}',
+                '{{$specialization_user[4]->color}}',
+                '{{$specialization_user[5]->color}}',
+                '{{$specialization_user[6]->color}}',
+                '{{$specialization_user[7]->color}}',
+                '{{$specialization_user[8]->color}}',
+                '{{$specialization_user[9]->color}}'
+            ],
         }],
     },
 });
@@ -183,7 +194,7 @@ var pie_chart_keahlian_tersedia = new Chart(ctx, {
             '{{$specialization_user[6]->name}}',
             '{{$specialization_user[7]->name}}',
             '{{$specialization_user[8]->name}}',
-            '{{$specialization_user[9]->name}}',
+            '{{$specialization_user[9]->name}}'
         ],
         datasets: [{
             data: [
@@ -196,9 +207,21 @@ var pie_chart_keahlian_tersedia = new Chart(ctx, {
                 {{$specialization_user[6]->user_specializations_count}},
                 {{$specialization_user[7]->user_specializations_count}},
                 {{$specialization_user[8]->user_specializations_count}},
-                {{$specialization_user[9]->user_specializations_count}},
+                {{$specialization_user[9]->user_specializations_count}}
             ],
-            backgroundColor: ['#0404fc','#ff5722','#60BD68','#F17CB0','#4D4D4D','#5DA5DA','#B2912F','#9c27b0','#fcf404','#F15854'],
+            backgroundColor: [
+                // '#0404fc','#ff5722','#60BD68','#F17CB0','#4D4D4D','#5DA5DA','#B2912F','#9c27b0','#fcf404','#F15854',
+                '{{$specialization_user[0]->color}}',
+                '{{$specialization_user[1]->color}}',
+                '{{$specialization_user[2]->color}}',
+                '{{$specialization_user[3]->color}}',
+                '{{$specialization_user[4]->color}}',
+                '{{$specialization_user[5]->color}}',
+                '{{$specialization_user[6]->color}}',
+                '{{$specialization_user[7]->color}}',
+                '{{$specialization_user[8]->color}}',
+                '{{$specialization_user[9]->color}}'
+            ],
         }],
     },
 });
@@ -261,13 +284,12 @@ var transactionAmountChart = new Chart(ctx, {
     data: {
         labels: ["Subscription", "Advertise", "Top Up", "Withdraw", "Project"],
         datasets: [{
-            label: 'Total Transaksi',
             data: [
-                {{ $transaction_amount['subscription']}},
-                {{ $transaction_amount['advertise']}},
-                {{ $transaction_amount['top_Up']}},
-                {{ $transaction_amount['withdraw']}},
-                {{ $transaction_amount['project']}}
+                {{ $transaction_amount['subscription'] }},
+                {{ $transaction_amount['advertise'] }},
+                {{ $transaction_amount['top_Up'] }},
+                {{ $transaction_amount['withdraw'] }},
+                {{ $transaction_amount['project'] }}
             ],
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
@@ -275,6 +297,23 @@ var transactionAmountChart = new Chart(ctx, {
         }],
     },
     options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(label, index, labels) {
+                        return Intl.NumberFormat().format(label);
+                    }
+                }
+            }]
+        },
+        tooltips: { 
+            callbacks: { 
+                label: function(tooltipItem, data) { 
+                    return 'Total Transaksi: '+tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                },
+            }, 
+        },
         legend: {
             display: false
         }

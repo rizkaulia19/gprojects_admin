@@ -46,7 +46,8 @@ class DashboardController extends Controller
             'advertise' => Transaction::where('transactionTypeId','92484f57-e16c-4afa-9cf4-37811546c6af')->sum('amount'),
             'top_Up' => Transaction::where('transactionTypeId','a7f6a062-e005-40c9-bc9b-90fa22ee1a4d')->sum('amount'),
             'withdraw' => Transaction::where('transactionTypeId','b1c18e0e-96e8-456c-b247-348e475438f8')->sum('amount'),
-            'project' => Transaction::where('transactionTypeId','d7d9110b-15c0-4613-8d27-f3f2fcd8a061')->sum('amount')
+            'project' => Transaction::where('transactionTypeId','d7d9110b-15c0-4613-8d27-f3f2fcd8a061')->sum('amount'),
+            'total' => Transaction::sum('amount')
         ];
 
         // $data = [];
