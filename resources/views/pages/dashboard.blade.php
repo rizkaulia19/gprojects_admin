@@ -128,7 +128,7 @@ var pie_chart_user = new Chart(ctx, {
         labels: ["Gpro", "Gclient"],
         datasets: [{
         data: [{{$count_user_gpro}}, {{$count_user_gclient}}],
-        backgroundColor: ['#ffc107', '#28a745'],
+        backgroundColor: [ '#e90003', '#cc76ff'],
         }],
     },
 });
