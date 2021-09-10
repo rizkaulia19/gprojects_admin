@@ -259,14 +259,25 @@ var ctx = document.getElementById("transactionAmountChart");
 var transactionAmountChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ["Mar 10", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7"],
+        labels: ["Subscription", "Advertise", "Top Up", "Withdraw", "Project"],
         datasets: [{
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            label: 'Total Transaksi',
+            data: [
+                {{ $transaction_amount['subscription']}},
+                {{ $transaction_amount['advertise']}},
+                {{ $transaction_amount['top_Up']}},
+                {{ $transaction_amount['withdraw']}},
+                {{ $transaction_amount['project']}}
+            ],
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0
         }],
+    },
+    options: {
+        legend: {
+            display: false
+        }
     }
 });
 </script>

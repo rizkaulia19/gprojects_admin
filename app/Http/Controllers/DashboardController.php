@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\ProjectApplicant;
 use App\Specialization;
+use App\Transaction;
 use DB;
 
 class DashboardController extends Controller
@@ -39,6 +40,15 @@ class DashboardController extends Controller
         //     ->groupBy('month') 
         //     ->get();
 
+        //Line chart total transaksi
+        $transaction_amount = [
+            'subscription' => Transaction::where('transactionTypeId','781877e1-1ec5-4911-8414-6f0d3d220035')->sum('amount'),
+            'advertise' => Transaction::where('transactionTypeId','92484f57-e16c-4afa-9cf4-37811546c6af')->sum('amount'),
+            'top_Up' => Transaction::where('transactionTypeId','a7f6a062-e005-40c9-bc9b-90fa22ee1a4d')->sum('amount'),
+            'withdraw' => Transaction::where('transactionTypeId','b1c18e0e-96e8-456c-b247-348e475438f8')->sum('amount'),
+            'project' => Transaction::where('transactionTypeId','d7d9110b-15c0-4613-8d27-f3f2fcd8a061')->sum('amount')
+        ];
+
         // $data = [];
 
         // foreach($monthly_user as $row) {
@@ -57,7 +67,8 @@ class DashboardController extends Controller
             'count_user_gpro' => $count_user_gpro,
             'count_user_gclient' => $count_user_gclient,
             'specialization_project' => $specialization_project,
-            'specialization_user' => $specialization_user
+            'specialization_user' => $specialization_user,
+            'transaction_amount' => $transaction_amount,
             ] );
     }   
 }
