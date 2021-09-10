@@ -47,4 +47,8 @@ class Advertise extends Model
     public function currency(){
         return $this->belongsTo(Currency::class,'currencyId', 'id');
     }
+
+    public function projects(){
+        return $this->hasMany(Project::class, 'advertiseId', 'id');
+    }
 }

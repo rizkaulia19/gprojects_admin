@@ -12,7 +12,13 @@ class Currency extends Model
     
     protected $keyType = 'string';
 
+    public $incrementing = false;
+
     public function advertises(){
         return $this->hasMany(Advertise::class, 'currencyId', 'id');
+    }
+
+    public function projects(){
+        return $this->hasMany(Project::class, 'currencyId', 'id');
     }
 }

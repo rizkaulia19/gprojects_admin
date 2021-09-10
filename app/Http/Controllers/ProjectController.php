@@ -29,10 +29,10 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function create($id)
-    // {
-    //     return view('pages.roles.create');
-    // }
+    public function create($id)
+    {
+        return view('pages.roles.create');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,15 +40,15 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(RoleRequest $request)
-    // {
-    //     $data = $request->all();
+    public function store(RoleRequest $request)
+    {
+        $data = $request->all();
 
-    //     $id = Uuid::uuid1()->toString();
+        $id = Uuid::uuid1()->toString();
 
-    //     Role::create($data);
-    //     return redirect()->route('roles.index');
-    // }
+        Role::create($data);
+        return redirect()->route('roles.index');
+    }
 
     /**
      * Display the specified resource.

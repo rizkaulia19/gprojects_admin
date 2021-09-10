@@ -33,7 +33,7 @@ class Project extends Model
     const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
-        'userId','code','name','cost'
+        'currencyId','advertiseId','userId','code','name','isAvailable','address','description','cost','province','city'
     ];
 
     protected $keyType = 'string';
@@ -46,6 +46,14 @@ class Project extends Model
 
     public function user(){
         return $this->belongsTo(User::class,'userId', 'id');
+    }
+
+    public function advertise(){
+        return $this->belongsTo(Advertise::class,'advertiseId', 'id');
+    }
+
+    public function currency(){
+        return $this->belongsTo(Currency::class,'currencyId', 'id');
     }
 
     public function project_activities(){
