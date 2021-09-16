@@ -154,7 +154,7 @@
                 Activities
             </div>
             <div class="card-body">
-                @forelse ($item->project_activities as $activity)
+                
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
@@ -177,6 +177,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
+                        @forelse ($item->project_activities as $activity)
                         <?php $i = 0; ?>
                         <tr>
                             <td>{{ ++$i }}</td>
@@ -192,11 +193,13 @@
                             <td>{{ $activity->user->name }}</td>
                             <td>{{ $activity->isConfirmed ? 'Yes' : 'No' }}</td>
                         </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center">No activities</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
-                @empty
-                <p class="text-center">No activities</p>
-                @endforelse
             </div>
         </div>
     </div>

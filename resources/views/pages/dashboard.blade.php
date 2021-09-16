@@ -55,7 +55,7 @@
                         <i class="fas fa-chart-bar me-1"></i>
                         Kota terbanyak sebagai titik coin
                     </div>
-                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                    <div class="card-body"><canvas id="countCityChart" width="100%" height="50"></canvas></div>
                     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                 </div>
             </div>
@@ -104,20 +104,20 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-chart-line me-1"></i>
-                        Total Transaksi
+                        Jumlah Transaksi
                     </div>
-                <div class="card-body"><canvas id="transactionSumChart" width="100%" ></canvas></div>
-            <div class="card-footer small text-muted">Total: {{ number_format($transaction_sum['total']) }}</div>
-            </div>
+                    <div class="card-body"><canvas id="transactionCountChart" width="100%"></canvas></div>
+                    <div class="card-footer small text-muted">Jumlah: {{ number_format($transaction_count['total']) }}</div>
+                </div>
             </div>
             <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-chart-line me-1"></i>
-                        Jumlah Transaksi
+                        Total Transaksi
                     </div>
-                    <div class="card-body"><canvas id="transactionCountChart" width="100%"></canvas></div>
-                    <div class="card-footer small text-muted">Jumlah: {{ number_format($transaction_count['total']) }}</div>
+                    <div class="card-body"><canvas id="transactionSumChart" width="100%" ></canvas></div>
+                    <div class="card-footer small text-muted">Total: {{ number_format($transaction_sum['total']) }}</div>
                 </div>
             </div>
         </div>
@@ -132,6 +132,64 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
 <script>
+// Bar Chart Kota terbanyak sebagai titik coin
+var ctx = document.getElementById("countCityChart");
+var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+            '{{$count_city[0]->city}}',
+            '{{$count_city[1]->city}}',
+            '{{$count_city[2]->city}}',
+            '{{$count_city[3]->city}}',
+            '{{$count_city[4]->city}}',
+            '{{$count_city[5]->city}}',
+            '{{$count_city[6]->city}}',
+            '{{$count_city[7]->city}}',
+            '{{$count_city[8]->city}}',
+            '{{$count_city[9]->city}}'
+        ],
+        datasets: [{
+            label: "Revenue",
+            backgroundColor: "rgba(2,117,216,1)",
+            borderColor: "rgba(2,117,216,1)",
+            data: [
+                {{$count_city[0]->project_applicants_count}},
+                {{$count_city[1]->project_applicants_count}},
+                {{$count_city[2]->project_applicants_count}},
+                {{$count_city[3]->project_applicants_count}},
+                {{$count_city[4]->project_applicants_count}},
+                {{$count_city[5]->project_applicants_count}},
+                {{$count_city[6]->project_applicants_count}},
+                {{$count_city[7]->project_applicants_count}},
+                {{$count_city[8]->project_applicants_count}},
+                {{$count_city[9]->project_applicants_count}}
+            ],
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: false
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    maxTicksLimit: 5
+                },
+                gridLines: {
+                    display: true
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+
 // Pie Chart Perbandingan User
 var ctx = document.getElementById("pie_chart_user");
 var pie_chart_user = new Chart(ctx, {

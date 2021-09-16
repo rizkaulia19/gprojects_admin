@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Project;
 use App\ProjectApplicant;
 use App\Specialization;
 use App\Transaction;
@@ -18,6 +19,12 @@ class DashboardController extends Controller
         $count_total_proyek_aktif = ProjectApplicant::where('status','=','waiting_approval')->count();
         $count_total_proyek_cancel = ProjectApplicant::where('status','=','canceled')->count();
         $count_total_proyek_sukses = ProjectApplicant::where('status','=','succeed')->count();
+
+        //Kota terbanyak sebagai titik coin
+        $count_city = Project::withCount('project_applicants')
+            ->orderBy('project_applicants_count','DESC')
+            ->limit(10)
+            ->get();
 
         //Pie Chart Perbandingan User
         $count_user_gpro = User::where('roleId','=','c7315ccc-c8c9-4e70-9b29-eedc9c872fa7')->count();
@@ -36,9 +43,9 @@ class DashboardController extends Controller
             ->get();
 
         //Chart Area Total User yang mendaftar
-        // $monthly_user = User::select(DB::raw("count(*) as user"), DB::raw("DATE_FORMAT(createdAt, '%m') as month"))
+        // $monthly_user = User::select(DB::raw("count(*) as user"), DB::raw("DATE_FORMAT('users.createdAt', '%m') as month"))
         //     ->orderBy('createdAt')
-        //     ->groupBy(DB::raw("DATE_FORMAT(createdAt, '%m')"))
+        //     ->groupBy('month')
         //     ->get();
 
         //Line chart total transaksi
@@ -76,12 +83,13 @@ class DashboardController extends Controller
             'count_total_proyek_aktif' => $count_total_proyek_aktif,
             'count_total_proyek_cancel' => $count_total_proyek_cancel,
             'count_total_proyek_sukses' => $count_total_proyek_sukses,
+            'count_city' => $count_city,
             'count_user_gpro' => $count_user_gpro,
             'count_user_gclient' => $count_user_gclient,
             'specialization_project' => $specialization_project,
             'specialization_user' => $specialization_user,
             'transaction_sum' => $transaction_sum,
             'transaction_count' => $transaction_count
-            ] );
+        ]);
     }   
 }
