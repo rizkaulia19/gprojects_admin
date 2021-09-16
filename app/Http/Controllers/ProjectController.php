@@ -58,7 +58,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $item = Project::with(['project_activities','project_applicants'])->findOrFail($id);
+        $item = Project::with(['project_activities','project_applicants','project_photos'])->findOrFail($id);
 
         return view('pages.projects.detail',[
             'item' => $item

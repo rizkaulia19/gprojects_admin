@@ -64,4 +64,8 @@ class Project extends Model
         return $this->hasMany(ProjectApplicant::class, 'projectId', 'id')->orderBy('updatedAt','DESC');
     }
 
+    public function project_photos(){
+        return $this->hasMany(ProjectPhoto::class, 'projectId', 'id');
+    }
+
 }

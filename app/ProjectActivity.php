@@ -9,36 +9,13 @@ use App\Traits\HasUuid;
 class ProjectActivity extends Model
 {
 
-    use SoftDeletes, HasUuid;
-
-    /**
-     * The name of the "created at" column.
-     *
-     * @var string
-     */
-    const CREATED_AT = 'createdAt';
-    
-    /**
-     * The name of the "updated at" column.
-     *
-     * @var string
-     */
-    const UPDATED_AT = 'updatedAt';
-
-    /**
-     * The name of the "deleted at" column.
-     *
-     * @var string
-     */
-    const DELETED_AT = 'deletedAt';
-
-    protected $fillable = [
-        'userId','projectId','name','description','type','isConfirmed'
-    ];
+    // protected $fillable = [
+    //     'userId','projectId','name','description','type','isConfirmed'
+    // ];
 
     protected $keyType = 'string';
 
-    public $incrementing = false;
+    // public $incrementing = false;
 
     public function user(){
         return $this->belongsTo(User::class,'userId', 'id');
