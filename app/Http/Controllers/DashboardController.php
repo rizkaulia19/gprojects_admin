@@ -21,8 +21,9 @@ class DashboardController extends Controller
         $count_total_proyek_sukses = ProjectApplicant::where('status','=','succeed')->count();
 
         //Kota terbanyak sebagai titik coin
-        $count_city = Project::withCount('project_applicants')
-            ->orderBy('project_applicants_count','DESC')
+        $count_city = Project::select('city', DB::raw('count(*) as total'))
+            ->groupBy('city')
+            ->orderBy('total','desc')
             ->limit(10)
             ->get();
 
@@ -43,10 +44,19 @@ class DashboardController extends Controller
             ->get();
 
         //Chart Area Total User yang mendaftar
-        // $monthly_user = User::select(DB::raw("count(*) as user"), DB::raw("DATE_FORMAT('users.createdAt', '%m') as month"))
-        //     ->orderBy('createdAt')
-        //     ->groupBy('month')
+        // $monthly_user = User::select(DB::raw('MONTH(createdAt) as month'), DB::raw('count(*) as user')) 
+        //     ->groupBy('month') 
         //     ->get();
+
+        // $monthly_user = User::select(
+        //         DB::raw('count(id) as data'),
+        //         DB::raw("DATE_FORMAT(createdAt, '%m-%Y') new_date"),
+        //         DB::raw('YEAR(createdAt) as year, MONTH(createdAt) as month')
+        //     )
+        //     ->groupBy('year','month')
+        //     ->get();
+
+        // dd($monthly_user);
 
         //Line chart total transaksi
         $transaction_sum = [
@@ -91,5 +101,5 @@ class DashboardController extends Controller
             'transaction_sum' => $transaction_sum,
             'transaction_count' => $transaction_count
         ]);
-    }   
+    }
 }
