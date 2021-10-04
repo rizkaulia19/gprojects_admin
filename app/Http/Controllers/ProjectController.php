@@ -17,7 +17,19 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $items = Project::with(['project_applicants'])->get(); 
+        $items = Project::with(['project_applicants'])
+            // ->join('project_applicants', 'project_applicants.projectId', '=', 'projects.id')
+            // ->select('projects.*')
+            // ->orderBy('project_applicants.updatedAt', 'asc')
+            // ->where('project_applicants.updatedAt','=', 'max(project_applicants.updatedAt)')
+            // ->join('project_applicants', function ($join) {
+            //     $join->on('projects.id', '=', 'project_applicants.projectId')
+            //          ->where('project_applicants.updatedAt', '=', "max('project_applicants.updatedAt')");
+                    // ->orderBy('project_applicants.updatedAt', 'desc');
+            // })
+            ->get();
+
+        // $items = $items->unique('id');
 
         return view('pages.projects.index',[
             'items' => $items
@@ -58,7 +70,8 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $item = Project::with(['project_activities','project_applicants','project_photos'])->findOrFail($id);
+        $item = Project::with(['project_activities','project_applicants','project_photos'])
+            ->findOrFail($id);
 
         return view('pages.projects.detail',[
             'item' => $item
