@@ -2,16 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasUuid;
 
-class Specialization extends Model
+class ClickSpecialization extends Model
 {
+    use HasUuid;
 
-    use SoftDeletes, HasUuid;
-
-    /**
+     /**
      * The name of the "created at" column.
      *
      * @var string
@@ -31,24 +30,22 @@ class Specialization extends Model
      * @var string
      */
     const DELETED_AT = 'deletedAt';
-
+ 
     protected $fillable = [
-        'islandId','name','code','image','icon','color'
+        'specializationId','userId'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
 
-    public function project_specializations(){
-        return $this->hasMany(ProjectSpecialization::class, 'specializationId', 'id');
+    public $timestamps = false;
+
+    public function specialization(){
+        return $this->belongsTo(Specialization::class,'specializationId', 'id');
     }
 
-    public function user_specializations(){
-        return $this->hasMany(UserSpecialization::class, 'specializationId', 'id');
-    }
-
-    public function click_specializations(){
-        return $this->hasMany(ClickSpecialization::class, 'specializationId', 'id');
+    public function user(){
+        return $this->belongsTo(User::class,'userId', 'id');
     }
 }

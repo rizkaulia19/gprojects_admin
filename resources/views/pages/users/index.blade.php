@@ -45,7 +45,7 @@
                         @forelse ($items as $item)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $item->code }}</td>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->role->name }}</td>

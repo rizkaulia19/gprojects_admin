@@ -68,6 +68,10 @@ class User extends Authenticatable
         return $this->hasMany(UserSpecialization::class, 'userId', 'id');
     }
 
+    public function click_specializations(){
+        return $this->hasMany(ClickSpecialization::class, 'userId', 'id');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
