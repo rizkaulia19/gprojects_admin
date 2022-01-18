@@ -11,6 +11,9 @@
                 <a class="nav-link" href="{{ route('users.index') }}">
                     User
                 </a>
+                <a class="nav-link" href="{{ route('dss') }}">
+                    SPK Spesialisasi
+                </a>
                 <div class="sb-sidenav-menu-heading">Master Data</div>
                 <a class="nav-link" href="{{ route('specializations.index') }}">
                     Specializations

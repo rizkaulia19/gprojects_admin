@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
+Route::get('/dss', 'DashboardController@dss')->name('dss');
 Route::resource('projects', 'ProjectController');
 Route::resource('project-activities', 'ProjectActivityController');
 Route::resource('users', 'UserController');
