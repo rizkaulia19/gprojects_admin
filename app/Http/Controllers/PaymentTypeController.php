@@ -51,7 +51,7 @@ class PaymentTypeController extends Controller
     {
         $data = $request->all();
 
-        $id = Uuid::uuid1()->toString();
+        $id = Uuid::uuid4()->toString();
 
         PaymentType::create($data);
         return redirect()->route('payment-types.index')->with('success', 'Payment Type created successfully!');

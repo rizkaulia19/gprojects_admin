@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         // $faker = Faker::create('id_ID');
  
         \App\User::create([
-            'id' => Uuid::uuid1()->toString(),
+            'id' => Uuid::uuid4()->toString(),
             'roleId' => '238d3456-b3b4-457d-8a8c-a50df9ca7a29',
             'name' => 'Admin Miranti',
             // 'nik' => '',

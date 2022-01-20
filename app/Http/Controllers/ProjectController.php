@@ -56,7 +56,7 @@ class ProjectController extends Controller
     {
         $data = $request->all();
 
-        $id = Uuid::uuid1()->toString();
+        $id = Uuid::uuid4()->toString();
 
         Role::create($data);
         return redirect()->route('roles.index');

@@ -22,7 +22,7 @@ class ClickSpecializationsTableSeeder extends Seeder
 
         for($i=1; $i<=5; $i++){
         	DB::table('click_specializations')->insert([
-                'id' => Uuid::uuid1()->toString(),
+                'id' => Uuid::uuid4()->toString(),
                 'specializationId' => $faker->randomElement($specializationsIDs),
                 'userId' => $faker->randomElement($usersIDs),
                 'createdAt' => Carbon::now(),

@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $data = $request->all();
 
-        $id = Uuid::uuid1()->toString();
+        $id = Uuid::uuid4()->toString();
         $data['islandId'] = '5d71c2b9-c9bd-4242-9dd9-195f08fe088f';
 
         // $data['password'] = Hash::make($data['password']);

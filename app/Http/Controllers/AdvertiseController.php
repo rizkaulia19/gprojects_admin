@@ -51,7 +51,7 @@ class AdvertiseController extends Controller
     {
         $data = $request->all();
 
-        $id = Uuid::uuid1()->toString();
+        $id = Uuid::uuid4()->toString();
 
         Advertise::create($data);
         return redirect()->route('advertises.index')->with('success', 'Advertise created successfully!');

@@ -43,7 +43,7 @@ class BankController extends Controller
     {
         $data = $request->all();
 
-        $id = Uuid::uuid1()->toString();
+        $id = Uuid::uuid4()->toString();
         $data['image'] = '';
 
         Bank::create($data);
