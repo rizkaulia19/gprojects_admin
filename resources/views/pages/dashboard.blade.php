@@ -56,7 +56,7 @@
                         Kota terbanyak sebagai titik coin
                     </div>
                     <div class="card-body"><canvas id="countCityChart" width="100%" height="50"></canvas></div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                    <div class="card-footer small text-muted">Titik koin terbanyak : {{$count_city[0]->city}}</div>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -77,8 +77,8 @@
                         <i class="fas fa-chart-pie me-1"></i>
                         Keahlian yang dibutuhkan
                     </div>
-                    <div class="card-body"><canvas id="pie_chart_keahlian_butuh" width="100%" height="50"></canvas>
-                    </div>
+                    <div class="card-body"><canvas id="pie_chart_keahlian_butuh" width="100%" height="50"></canvas></div>
+                    <div class="card-footer small text-muted">Keahlian yang dibutuhkan terbanyak : {{$specialization_project[0]->name}}</div>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -88,7 +88,8 @@
                         Keahlian tersedia
                     </div>
                     <div class="card-body"><canvas id="pie_chart_keahlian_tersedia" width="100%"
-                            height="50"></canvas></div>
+                            height="50"></canvas></div>                            
+                    <div class="card-footer small text-muted">Keahlian yang tersedia terbanyak : {{$specialization_user[0]->name}}</div>
                 </div>
             </div>
         </div>
@@ -150,7 +151,7 @@ var myLineChart = new Chart(ctx, {
             '{{$count_city[9]->city}}'
         ],
         datasets: [{
-            label: "Revenue",
+            label: "Jumlah",
             backgroundColor: "rgba(2,117,216,1)",
             borderColor: "rgba(2,117,216,1)",
             data: [
