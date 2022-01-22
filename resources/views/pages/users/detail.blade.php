@@ -60,6 +60,25 @@
                             <th>Rating GClient</th>
                             <td>{{ $item->ratingAsGClient}}</td>
                         </tr>
+                        <tr>
+                            <th>Specialization</th>
+                            <td>
+                                @foreach ($item->user_specializations as $specialization)
+                                    @if ($specialization == null || $specialization->specializationId == null)
+                                        
+                                    @else
+                                        @if ($specialization->isMain==true)
+                                            {{ $specialization->specialization->name }} (main)
+                                        @else
+                                            {{ $specialization->specialization->name }}
+                                        @endif
+                                    @endif
+                                    @if (!$loop->last)
+                                        ,
+                                    @endif
+                                @endforeach
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div class="col-2">

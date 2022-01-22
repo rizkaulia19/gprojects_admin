@@ -49,14 +49,14 @@
                             <tr>
                                 <th>Specialization</th>
                                 <td>
-                                    @foreach($item->project_specializations as $specialization)
-                                        @if($specialization == null || $specialization->specializationId == null)
-                                            No specializations
+                                    @foreach ($item->project_specializations as $specialization)
+                                        @if ($specialization == null || $specialization->specializationId == null)
+                                            
                                         @else
-                                        {{ $specialization->specialization->name }}
+                                            {{ $specialization->specialization->name }}
                                         @endif
-                                        @if(!$loop->last)
-                                        ,
+                                        @if (!$loop->last)
+                                            ,
                                         @endif
                                     @endforeach
                                 </td>
@@ -128,11 +128,11 @@
                         <td>
                             @foreach ($item->project_specializations as $specialization)
                                 @if ($specialization == null || $specialization->specializationId == null)
-                                    No specializations
+                                    
                                 @else
-                                    {{ $specialization->specialization->name }},
+                                    {{ $specialization->specialization->name }}
                                 @endif
-                                @if( !$loop->last)
+                                @if (!$loop->last)
                                     ,
                                 @endif
                             @endforeach

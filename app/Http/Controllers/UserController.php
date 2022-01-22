@@ -31,7 +31,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $item = User::findOrFail($id);
+        $item = User::with(['user_specializations'])
+            ->findOrFail($id);
 
         return view('pages.users.detail',[
             'item' => $item
