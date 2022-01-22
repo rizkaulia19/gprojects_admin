@@ -20,7 +20,7 @@ class ClickSpecializationsTableSeeder extends Seeder
         $specializationsIDs = DB::table('specializations')->pluck('id');
         $usersIDs = DB::table('users')->pluck('id');
 
-        for($i=1; $i<=5; $i++){
+        for($i=1; $i<=500; $i++){
         	DB::table('click_specializations')->insert([
                 'id' => Uuid::uuid4()->toString(),
                 'specializationId' => $faker->randomElement($specializationsIDs),

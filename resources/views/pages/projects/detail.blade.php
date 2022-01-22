@@ -46,6 +46,21 @@
                                 <th>GClient</th>
                                 <td>{{ $item->user->name}} <a href="{{ route('users.show', $item->user->id) }}" style="font-size:12px;">(Detail GClient)</a></td>
                             </tr>
+                            <tr>
+                                <th>Specialization</th>
+                                <td>
+                                    @foreach($item->project_specializations as $specialization)
+                                        @if($specialization == null || $specialization->specializationId == null)
+                                            No specializations
+                                        @else
+                                        {{ $specialization->specialization->name }}
+                                        @endif
+                                        @if(!$loop->last)
+                                        ,
+                                        @endif
+                                    @endforeach
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -107,6 +122,21 @@
                     <tr>
                         <th>GClient</th>
                         <td>{{ $item->user->name}} <a href="{{ route('users.show', $item->user->id) }}" style="font-size:12px;">(Detail GClient)</a></td>
+                    </tr>
+                    <tr>
+                        <th>Specialization</th>
+                        <td>
+                            @foreach ($item->project_specializations as $specialization)
+                                @if ($specialization == null || $specialization->specializationId == null)
+                                    No specializations
+                                @else
+                                    {{ $specialization->specialization->name }},
+                                @endif
+                                @if( !$loop->last)
+                                    ,
+                                @endif
+                            @endforeach
+                        </td>
                     </tr>
                 </table>
             </div>
