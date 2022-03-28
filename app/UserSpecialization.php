@@ -17,4 +17,8 @@ class UserSpecialization extends Model
     public function user(){
         return $this->belongsTo(User::class,'userId', 'id');
     }
+
+    public function project_applicants(){
+        return $this->hasMany(ProjectApplicant::class, 'userId', 'id');
+    }
 }

@@ -47,4 +47,8 @@ class ProjectApplicant extends Model
     public function project(){
         return $this->belongsTo(Project::class,'projectId', 'id');
     }
+
+    // public function user_specializations(){
+    //     return $this->belongsTo(UserSpecialization::class, 'userId', 'id');
+    // }
 }

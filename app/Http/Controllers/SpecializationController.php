@@ -17,7 +17,7 @@ class SpecializationController extends Controller
      */
     public function index()
     {
-        $items = Specialization::with(['project_specializations','click_specializations'])->get();
+        $items = Specialization::with(['project_specializations'])->get();
 
         return view('pages.specializations.index',[
             'items' => $items

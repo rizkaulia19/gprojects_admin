@@ -102,10 +102,4 @@ class DashboardController extends Controller
             'transaction_count' => $transaction_count
         ]);
     }
-
-    public function dss()
-    {
-
-        return view('pages.dss');
-    }
 }

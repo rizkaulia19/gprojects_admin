@@ -18,31 +18,50 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
-                            <th>Color</th>
-                            <th>Count in Project</th>
-                            <th>Action</th>
+                            <th>Spesialisasi</th>
+                            <th>Jml Aplikan</th>
+                            <th>Nominal Proyek</th>
+                            <th>Total User</th>
+                            <th>Total Proyek</th>
+                            <th>Total Proyek Berhasil</th>
+                            <th>Total Klik</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
-                            <th>Color</th>
-                            <th>Count in Project</th>
-                            <th>Action</th>
+                            <th>Spesialisasi</th>
+                            <th>Jml Aplikan</th>
+                            <th>Nominal Proyek</th>
+                            <th>Total User</th>
+                            <th>Total Proyek</th>
+                            <th>Total Proyek Berhasil</th>
+                            <th>Total Klik</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        
+                        <?php $i = 0; ?>
+                        @forelse ($items as $item)
+                        <tr>
+                            <td>{{ ++$i }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td></td>
+                            <td>{{ number_format($item->project_specializations->sum('project.cost'), 0, '', ',') }}</td>
+                            <td>{{ $item->user_specializations->count() }}</td>
+                            <td>{{ $item->project_specializations->count() }}</td>
+                            <td></td>
+                            <td>{{ $item->click_specializations->count() }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No entries found</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
 </main>
-
-
 @endsection
 

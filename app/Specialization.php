@@ -51,4 +51,9 @@ class Specialization extends Model
     public function click_specializations(){
         return $this->hasMany(ClickSpecialization::class, 'specializationId', 'id');
     }
+
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'user_specializations');
+    // }
 }
