@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasUuid;
 
-class Role extends Model
+class Bank extends Model
 {
 
     use SoftDeletes, HasUuid;
@@ -17,7 +17,7 @@ class Role extends Model
      * @var string
      */
     const CREATED_AT = 'createdAt';
-    
+
     /**
      * The name of the "updated at" column.
      *
@@ -33,14 +33,10 @@ class Role extends Model
     const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
-        'code','name','image'
+        'code', 'name', 'isAvailable', 'image', 'canDisburse', 'canNameValidate'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
-
-    public function users(){
-        return $this->hasMany(User::class, 'roleId', 'id');
-    }
 }

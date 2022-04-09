@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasUuid;
 
-class Specialization extends Model
+class Advertise extends Model
 {
 
     use SoftDeletes, HasUuid;
@@ -17,7 +17,7 @@ class Specialization extends Model
      * @var string
      */
     const CREATED_AT = 'createdAt';
-    
+
     /**
      * The name of the "updated at" column.
      *
@@ -33,27 +33,25 @@ class Specialization extends Model
     const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
-        'islandId','name','code','image','icon','color'
+        'currencyId', 'advertiseTypeId', 'name', 'code', 'description', 'price'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
 
-    public function project_specializations(){
-        return $this->hasMany(ProjectSpecialization::class, 'specializationId', 'id');
+    public function advertise_type()
+    {
+        return $this->belongsTo(AdvertiseType::class, 'advertiseTypeId', 'id');
     }
 
-    public function user_specializations(){
-        return $this->hasMany(UserSpecialization::class, 'specializationId', 'id');
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class, 'currencyId', 'id');
     }
 
-    public function click_specializations(){
-        return $this->hasMany(ClickSpecialization::class, 'specializationId', 'id');
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'advertiseId', 'id');
     }
-
-    // public function users()
-    // {
-    //     return $this->belongsToMany(User::class, 'user_specializations');
-    // }
 }

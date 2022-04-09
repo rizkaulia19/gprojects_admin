@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasUuid;
 
-class Bank extends Model
+class PaymentType extends Model
 {
 
     use SoftDeletes, HasUuid;
@@ -17,7 +17,7 @@ class Bank extends Model
      * @var string
      */
     const CREATED_AT = 'createdAt';
-    
+
     /**
      * The name of the "updated at" column.
      *
@@ -33,10 +33,20 @@ class Bank extends Model
     const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
-        'code','name','isAvailable','image','canDisburse','canNameValidate'
+        'paymentGatewayId', 'paymentTypeCategoryId', 'name', 'code', 'image', 'isAvailable', 'fixedFee', 'percentageFee'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
+
+    public function payment_gateway()
+    {
+        return $this->belongsTo(PaymentGateway::class, 'paymentGatewayId', 'id');
+    }
+
+    public function payment_type_category()
+    {
+        return $this->belongsTo(PaymentTypeCategory::class, 'paymentTypeCategoryId', 'id');
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +10,8 @@ class ProjectPhoto extends Model
 {
     protected $keyType = 'string';
 
-    public function project(){
-        return $this->belongsTo(Project::class,'projectId', 'id');
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'projectId', 'id');
     }
 }

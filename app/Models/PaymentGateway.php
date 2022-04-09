@@ -1,22 +1,23 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasUuid;
 
-class ClickSpecialization extends Model
+class PaymentGateway extends Model
 {
-    use HasUuid;
 
-     /**
+    use SoftDeletes, HasUuid;
+
+    /**
      * The name of the "created at" column.
      *
      * @var string
      */
     const CREATED_AT = 'createdAt';
-    
+
     /**
      * The name of the "updated at" column.
      *
@@ -30,22 +31,17 @@ class ClickSpecialization extends Model
      * @var string
      */
     const DELETED_AT = 'deletedAt';
- 
+
     protected $fillable = [
-        'specializationId','userId'
+        'code', 'name'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
 
-    public $timestamps = false;
-
-    public function specialization(){
-        return $this->belongsTo(Specialization::class,'specializationId', 'id');
-    }
-
-    public function user(){
-        return $this->belongsTo(User::class,'userId', 'id');
+    public function payment_gateway_channels()
+    {
+        return $this->hasMany(PaymentGatewayChannel::class, 'paymentGatewayId', 'id');
     }
 }

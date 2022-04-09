@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,15 +20,35 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
 Route::get('/dss', 'CriteriaController@index')->name('dss');
-Route::resource('projects', 'ProjectController');
-Route::resource('project-activities', 'ProjectActivityController');
-Route::resource('users', 'UserController');
-Route::resource('specializations', 'SpecializationController');
-Route::resource('roles', 'RoleController');
-Route::resource('banks', 'BankController');
-Route::resource('advertise-types', 'AdvertiseTypeController');
-Route::resource('advertises', 'AdvertiseController');
-Route::resource('payment-gateways', 'PaymentGatewayController');
-Route::resource('payment-types', 'PaymentTypeController');
+Route::resource('projects', 'ProjectController')->parameters([
+    'projects' => 'id'
+]);
+Route::resource('project-activities', 'ProjectActivityController')->parameters([
+    'project-activities' => 'id'
+]);
+Route::resource('users', 'UserController')->parameters([
+    'users' => 'id'
+]);
+Route::resource('specializations', 'SpecializationController')->parameters([
+    'specializations' => 'id'
+]);
+Route::resource('roles', 'RoleController')->parameters([
+    'roles' => 'id'
+]);
+Route::resource('banks', 'BankController')->parameters([
+    'banks' => 'id'
+]);
+Route::resource('advertise-types', 'AdvertiseTypeController')->parameters([
+    'advertise-types' => 'id'
+]);
+Route::resource('advertises', 'AdvertiseController')->parameters([
+    'advertises' => 'id'
+]);
+Route::resource('payment-gateways', 'PaymentGatewayController')->parameters([
+    'payment-gateways' => 'id'
+]);
+Route::resource('payment-types', 'PaymentTypeController')->parameters([
+    'payment-types' => 'id'
+]);
 
 Auth::routes();

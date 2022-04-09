@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\AdvertiseType;
-use App\Advertise;
 use App\Http\Requests\AdvertiseTypeRequest;
+use App\Models\AdvertiseType;
 use Ramsey\Uuid\Uuid;
 
 class AdvertiseTypeController extends Controller
@@ -19,7 +17,7 @@ class AdvertiseTypeController extends Controller
     {
         $items = AdvertiseType::all();
 
-        return view('pages.advertise-types.index',[
+        return view('pages.advertise-types.index', [
             'items' => $items
         ]);
     }
@@ -60,7 +58,7 @@ class AdvertiseTypeController extends Controller
     {
         $item = AdvertiseType::with(['advertises'])->findOrFail($id);
 
-        return view('pages.advertise-types.detail',[
+        return view('pages.advertise-types.detail', [
             'item' => $item
         ]);
     }
@@ -75,7 +73,7 @@ class AdvertiseTypeController extends Controller
     {
         $item = AdvertiseType::findOrFail($id);
 
-        return view('pages.advertise-types.edit',[
+        return view('pages.advertise-types.edit', [
             'item' => $item
         ]);
     }
@@ -92,7 +90,7 @@ class AdvertiseTypeController extends Controller
         $data = $request->all();
 
         $item = AdvertiseType::findOrFail($id);
-        
+
         $item->update($data);
 
         return redirect()->route('advertise-types.index');

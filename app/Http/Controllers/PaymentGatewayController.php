@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\PaymentGateway;
 use App\Http\Requests\PaymentGatewayRequest;
+use App\Models\PaymentGateway;
 use Ramsey\Uuid\Uuid;
 
 class PaymentGatewayController extends Controller
@@ -18,7 +17,7 @@ class PaymentGatewayController extends Controller
     {
         $items = PaymentGateway::all();
 
-        return view('pages.payment-gateways.index',[
+        return view('pages.payment-gateways.index', [
             'items' => $items
         ]);
     }
@@ -59,7 +58,7 @@ class PaymentGatewayController extends Controller
     {
         $item = PaymentGateway::findOrFail($id);
 
-        return view('pages.payment-gateways.detail',[
+        return view('pages.payment-gateways.detail', [
             'item' => $item
         ]);
     }
@@ -74,7 +73,7 @@ class PaymentGatewayController extends Controller
     {
         $item = PaymentGateway::findOrFail($id);
 
-        return view('pages.payment-gateways.edit',[
+        return view('pages.payment-gateways.edit', [
             'item' => $item
         ]);
     }
@@ -86,12 +85,12 @@ class PaymentGatewayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PaymentGatewayRequest $request, $id)
+    public function update(PaymentGatewayRequest $request)
     {
         $data = $request->all();
 
-        $item = PaymentGateway::findOrFail($id);
-        
+        $item = PaymentGateway::findOrFail($request->id);
+
         $item->update($data);
 
         return redirect()->route('payment-gateways.index');

@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasUuid;
 
-class AdvertiseType extends Model
+class Role extends Model
 {
 
     use SoftDeletes, HasUuid;
@@ -17,7 +17,7 @@ class AdvertiseType extends Model
      * @var string
      */
     const CREATED_AT = 'createdAt';
-    
+
     /**
      * The name of the "updated at" column.
      *
@@ -33,14 +33,15 @@ class AdvertiseType extends Model
     const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
-        'code','name'
+        'code', 'name', 'image'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
 
-    public function advertises(){
-        return $this->hasMany(Advertise::class, 'advertiseTypeId', 'id');
+    public function users()
+    {
+        return $this->hasMany(User::class, 'roleId', 'id');
     }
 }

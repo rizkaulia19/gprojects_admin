@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Advertise;
-use App\AdvertiseType;
-use App\Currency;
 use App\Http\Requests\AdvertiseRequest;
+use App\Models\Advertise;
+use App\Models\AdvertiseType;
+use App\Models\Currency;
 use Ramsey\Uuid\Uuid;
 
 class AdvertiseController extends Controller
@@ -20,7 +19,7 @@ class AdvertiseController extends Controller
     {
         $items = Advertise::all();
 
-        return view('pages.advertises.index',[
+        return view('pages.advertises.index', [
             'items' => $items
         ]);
     }
@@ -67,7 +66,7 @@ class AdvertiseController extends Controller
     {
         $item = Advertise::findOrFail($id);
 
-        return view('pages.advertises.detail',[
+        return view('pages.advertises.detail', [
             'item' => $item
         ]);
     }
@@ -85,7 +84,7 @@ class AdvertiseController extends Controller
         $advertise_types = AdvertiseType::all();
         $currencies = Currency::all();
 
-        return view('pages.advertises.edit',[
+        return view('pages.advertises.edit', [
             'item' => $item,
             'advertise_types' => $advertise_types,
             'currencies' => $currencies
@@ -104,7 +103,7 @@ class AdvertiseController extends Controller
         $data = $request->all();
 
         $item = Advertise::findOrFail($id);
-        
+
         $item->update($data);
 
         return redirect()->route('advertises.index');

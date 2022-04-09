@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Bank;
 use App\Http\Requests\BankRequest;
+use App\Models\Bank;
 use Ramsey\Uuid\Uuid;
 
 class BankController extends Controller
@@ -18,7 +17,7 @@ class BankController extends Controller
     {
         $items = Bank::all();
 
-        return view('pages.banks.index',[
+        return view('pages.banks.index', [
             'items' => $items
         ]);
     }
@@ -60,7 +59,7 @@ class BankController extends Controller
     {
         $item = Bank::findOrFail($id);
 
-        return view('pages.banks.detail',[
+        return view('pages.banks.detail', [
             'item' => $item
         ]);
     }
@@ -75,7 +74,7 @@ class BankController extends Controller
     {
         $item = Bank::findOrFail($id);
 
-        return view('pages.banks.edit',[
+        return view('pages.banks.edit', [
             'item' => $item
         ]);
     }

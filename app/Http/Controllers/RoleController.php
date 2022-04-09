@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Role;
+use App\Http\Requests\DetailPageRequest;
 use App\Http\Requests\RoleRequest;
+use App\Models\Role;
 use Ramsey\Uuid\Uuid;
 
 class RoleController extends Controller
@@ -18,7 +18,7 @@ class RoleController extends Controller
     {
         $items = Role::all();
 
-        return view('pages.roles.index',[
+        return view('pages.roles.index', [
             'items' => $items
         ]);
     }
@@ -52,14 +52,14 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  DetailPageRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(DetailPageRequest $request)
     {
-        $item = Role::findOrFail($id);
+        $item = Role::findOrFail($request->id);
 
-        return view('pages.roles.detail',[
+        return view('pages.roles.detail', [
             'item' => $item
         ]);
     }
@@ -67,14 +67,14 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  DetailPageRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(DetailPageRequest $request)
     {
-        $item = Role::findOrFail($id);
+        $item = Role::findOrFail($request->id);
 
-        return view('pages.roles.edit',[
+        return view('pages.roles.edit', [
             'item' => $item
         ]);
     }
@@ -91,7 +91,7 @@ class RoleController extends Controller
         $data = $request->all();
 
         $item = Role::findOrFail($id);
-        
+
         $item->update($data);
 
         return redirect()->route('roles.index');

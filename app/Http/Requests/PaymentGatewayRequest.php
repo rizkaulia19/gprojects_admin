@@ -24,6 +24,7 @@ class PaymentGatewayRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'required',
             'name' => 'required|max:255',
             'code' => 'required|max:255'
         ];

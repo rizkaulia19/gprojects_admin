@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\PaymentType;
-use App\PaymentGateway;
-use App\PaymentTypeCategory;
-use App\Http\Requests\PaymentTypeRequest;
+use App\Http\Requests\DeletePageRequest;
+use App\Http\Requests\DetailPageRequest;
+use App\Http\Requests\PaymentType\PaymentTypeCreateRequest;
+use App\Http\Requests\PaymentType\PaymentTypeUpdateRequest;
+use App\Models\PaymentGateway;
+use App\Models\PaymentType;
+use App\Models\PaymentTypeCategory;
 use Ramsey\Uuid\Uuid;
 
 class PaymentTypeController extends Controller
@@ -20,7 +22,7 @@ class PaymentTypeController extends Controller
     {
         $items = PaymentType::all();
 
-        return view('pages.payment-types.index',[
+        return view('pages.payment-types.index', [
             'items' => $items
         ]);
     }
@@ -47,7 +49,7 @@ class PaymentTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PaymentTypeRequest $request)
+    public function store(PaymentTypeCreateRequest $request)
     {
         $data = $request->all();
 
@@ -60,14 +62,14 @@ class PaymentTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  DetailPageRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(DetailPageRequest $request)
     {
-        $item = PaymentType::findOrFail($id);
+        $item = PaymentType::findOrFail($request->id);
 
-        return view('pages.payment-types.detail',[
+        return view('pages.payment-types.detail', [
             'item' => $item
         ]);
     }
@@ -75,17 +77,17 @@ class PaymentTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  DetailPageRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(DetailPageRequest $request)
     {
-        $item = PaymentType::findOrFail($id);
+        $item = PaymentType::findOrFail($request->id);
 
         $payment_gateways = PaymentGateway::all();
         $payment_type_categories = PaymentTypeCategory::all();
 
-        return view('pages.payment-types.edit',[
+        return view('pages.payment-types.edit', [
             'item' => $item,
             'payment_gateways' => $payment_gateways,
             'payment_type_categories' => $payment_type_categories
@@ -99,12 +101,12 @@ class PaymentTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PaymentTypeRequest $request, $id)
+    public function update(PaymentTypeUpdateRequest $request)
     {
         $data = $request->all();
 
-        $item = PaymentType::findOrFail($id);
-        
+        $item = PaymentType::findOrFail($request->id);
+
         $item->update($data);
 
         return redirect()->route('payment-types.index');
@@ -113,12 +115,12 @@ class PaymentTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  DeletePageRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DeletePageRequest $request)
     {
-        $item =  PaymentType::findOrFail($id);
+        $item =  PaymentType::findOrFail($request->id);
         $item->delete();
 
         return redirect()->route('payment-types.index');

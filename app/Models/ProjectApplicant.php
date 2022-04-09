@@ -1,15 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasUuid;
 
-class Advertise extends Model
+class ProjectApplicant extends Model
 {
 
-    use SoftDeletes, HasUuid;
+    // protected $table = 'project_applicants';
 
     /**
      * The name of the "created at" column.
@@ -17,7 +17,7 @@ class Advertise extends Model
      * @var string
      */
     const CREATED_AT = 'createdAt';
-    
+
     /**
      * The name of the "updated at" column.
      *
@@ -33,22 +33,24 @@ class Advertise extends Model
     const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
-        'currencyId','advertiseTypeId','name','code','description','price'
+        'userId', 'projectId', 'status'
     ];
 
     protected $keyType = 'string';
 
     public $incrementing = false;
 
-    public function advertise_type(){
-        return $this->belongsTo(AdvertiseType::class,'advertiseTypeId', 'id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId', 'id');
     }
 
-    public function currency(){
-        return $this->belongsTo(Currency::class,'currencyId', 'id');
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'projectId', 'id');
     }
 
-    public function projects(){
-        return $this->hasMany(Project::class, 'advertiseId', 'id');
-    }
+    // public function user_specializations(){
+    //     return $this->belongsTo(UserSpecialization::class, 'userId', 'id');
+    // }
 }

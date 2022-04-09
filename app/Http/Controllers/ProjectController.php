@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Project;
-use App\ProjectActivity;
-use App\ProjectApplicant;
+use App\Http\Requests\RoleRequest;
+use App\Models\Project;
+use App\Models\Role;
+use Ramsey\Uuid\Uuid;
+
 // use Ramsey\Uuid\Uuid;
 
 class ProjectController extends Controller
@@ -25,13 +26,13 @@ class ProjectController extends Controller
             // ->join('project_applicants', function ($join) {
             //     $join->on('projects.id', '=', 'project_applicants.projectId')
             //          ->where('project_applicants.updatedAt', '=', "max('project_applicants.updatedAt')");
-                    // ->orderBy('project_applicants.updatedAt', 'desc');
+            // ->orderBy('project_applicants.updatedAt', 'desc');
             // })
             ->get();
 
         // $items = $items->unique('id');
 
-        return view('pages.projects.index',[
+        return view('pages.projects.index', [
             'items' => $items
         ]);
     }
@@ -70,10 +71,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $item = Project::with(['project_activities','project_applicants','project_photos','project_specializations'])
+        $item = Project::with(['project_activities', 'project_applicants', 'project_photos', 'project_specializations'])
             ->findOrFail($id);
 
-        return view('pages.projects.detail',[
+        return view('pages.projects.detail', [
             'item' => $item
         ]);
     }
@@ -105,7 +106,7 @@ class ProjectController extends Controller
     //     $data = $request->all();
 
     //     $item = Role::findOrFail($id);
-        
+
     //     $item->update($data);
 
     //     return redirect()->route('roles.index');

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Specialization;
-use App\ProjectSpecialization;
-use App\Http\Requests\SpecializationRequest;
+use App\Http\Requests\DeletePageRequest;
+use App\Http\Requests\DetailPageRequest;
+use App\Http\Requests\Specialization\SpecializationCreateRequest;
+use App\Http\Requests\Specialization\SpecializationUpdateRequest;
+use App\Models\Specialization;
 use Ramsey\Uuid\Uuid;
 
 class SpecializationController extends Controller
@@ -19,7 +20,7 @@ class SpecializationController extends Controller
     {
         $items = Specialization::with(['project_specializations'])->get();
 
-        return view('pages.specializations.index',[
+        return view('pages.specializations.index', [
             'items' => $items
         ]);
     }
@@ -37,10 +38,10 @@ class SpecializationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SpecializationCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SpecializationRequest $request)
+    public function store(SpecializationCreateRequest $request)
     {
         $data = $request->all();
 
@@ -54,14 +55,13 @@ class SpecializationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  DetailPageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(DetailPageRequest $request)
     {
-        $item = Specialization::findOrFail($id);
-
-        return view('pages.specializations.detail',[
+        $item = Specialization::findOrFail($request->id);
+        return view('pages.specializations.detail', [
             'item' => $item
         ]);
     }
@@ -69,14 +69,13 @@ class SpecializationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  DetailPageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(DetailPageRequest $request)
     {
-        $item = Specialization::findOrFail($id);
-
-        return view('pages.specializations.edit',[
+        $item = Specialization::findOrFail($request->id);
+        return view('pages.specializations.edit', [
             'item' => $item
         ]);
     }
@@ -84,15 +83,14 @@ class SpecializationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  SpecializationUpdateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(SpecializationRequest $request, $id)
+    public function update(SpecializationUpdateRequest $request)
     {
         $data = $request->all();
 
-        $item = Specialization::findOrFail($id);
+        $item = Specialization::findOrFail($request->id);
         $item->update($data);
 
         return redirect()->route('specializations.index');
@@ -101,12 +99,12 @@ class SpecializationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  DeletePageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DeletePageRequest $request)
     {
-        $item =  Specialization::findOrFail($id);
+        $item =  Specialization::findOrFail($request->id);
         $item->delete();
 
         return redirect()->route('specializations.index');

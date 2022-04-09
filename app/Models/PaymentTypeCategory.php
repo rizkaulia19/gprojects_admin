@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +12,8 @@ class PaymentTypeCategory extends Model
 
     protected $keyType = 'string';
 
-    public function payment_type_categories(){
+    public function payment_type_categories()
+    {
         return $this->hasMany(PaymentGatewayChannel::class, 'paymentTypeCategoryId', 'id');
     }
 }

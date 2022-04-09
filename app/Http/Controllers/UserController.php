@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\User;
-use App\Role;
 use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $items = User::all();
 
-        return view('pages.users.index',[
+        return view('pages.users.index', [
             'items' => $items
         ]);
     }
@@ -34,7 +34,7 @@ class UserController extends Controller
         $item = User::with(['user_specializations'])
             ->findOrFail($id);
 
-        return view('pages.users.detail',[
+        return view('pages.users.detail', [
             'item' => $item
         ]);
     }
@@ -52,7 +52,7 @@ class UserController extends Controller
             'roles' => $roles,
             // ('success', 'Data baru berhasil ditambah!')
         ]);
-        
+
         return back()->with('success', 'Data baru berhasil ditambah!');
     }
 
@@ -98,7 +98,7 @@ class UserController extends Controller
     {
         $item = User::findOrFail($id);
 
-        return view('pages.users.edit',[
+        return view('pages.users.edit', [
             'item' => $item
         ]);
     }
@@ -120,7 +120,7 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -133,5 +133,4 @@ class UserController extends Controller
 
         return redirect()->route('users.index');
     }
-
 }
