@@ -49,6 +49,6 @@ class GetReportRankingSpecializationService
                 'score' => $results[$rIndex][self::S_VALUE_KEY] / $totalS
             ];
         }
-        return array_values(collect($results)->sortByDesc('score')->toArray());
+        return array_values(collect($results)->sortBy('score')->toArray());
     }
 }
