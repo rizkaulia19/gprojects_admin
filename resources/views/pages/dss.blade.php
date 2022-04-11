@@ -25,6 +25,7 @@
                             <th>Total Proyek</th>
                             <th>Total Proyek Berhasil</th>
                             <th>Total Klik</th>
+                            <th>Total Score</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -37,6 +38,7 @@
                             <th>Total Proyek</th>
                             <th>Total Proyek Berhasil</th>
                             <th>Total Klik</th>
+                            <th>Total Score</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -51,6 +53,7 @@
                             <td>{{ $item['total_project'] }}</td>
                             <td>{{ $item['succeed_project'] }}</td>
                             <td>{{ $item['total_click'] }}</td>
+                            <td>{{ $item['score'] }}</td>
                         </tr>
                         @empty
                         <tr>
