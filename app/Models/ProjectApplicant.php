@@ -9,7 +9,7 @@ use App\Traits\HasUuid;
 class ProjectApplicant extends Model
 {
 
-    // protected $table = 'project_applicants';
+    protected $table = 'project_applicants';
 
     /**
      * The name of the "created at" column.
@@ -50,7 +50,8 @@ class ProjectApplicant extends Model
         return $this->belongsTo(Project::class, 'projectId', 'id');
     }
 
-    // public function user_specializations(){
-    //     return $this->belongsTo(UserSpecialization::class, 'userId', 'id');
-    // }
+    public function user_specializations()
+    {
+        return $this->belongsTo(UserSpecialization::class, 'id', 'userId');
+    }
 }

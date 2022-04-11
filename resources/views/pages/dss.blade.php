@@ -44,13 +44,13 @@
                         @forelse ($items as $item)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td></td>
-                            <td>{{ number_format($item->project_specializations->sum('project.cost'), 0, '', ',') }}</td>
-                            <td>{{ $item->user_specializations->count() }}</td>
-                            <td>{{ $item->project_specializations->count() }}</td>
-                            <td></td>
-                            <td>{{ $item->click_specializations->count() }}</td>
+                            <td>{{ $item['name'] }}</td>
+                            <td>{{ $item['total_applicant'] }}</td>
+                            <td>{{ number_format($item['revenue'], 0, '', ',') }}</td>
+                            <td>{{ $item['total_user'] }}</td>
+                            <td>{{ $item['total_project'] }}</td>
+                            <td>{{ $item['succeed_project'] }}</td>
+                            <td>{{ $item['total_click'] }}</td>
                         </tr>
                         @empty
                         <tr>
@@ -64,4 +64,3 @@
     </div>
 </main>
 @endsection
-
