@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
@@ -67,21 +69,24 @@ class UserController extends Controller
         $data = $request->all();
 
         $id = Uuid::uuid4()->toString();
+        $codeRandom = 'G-'.Str::random(8);
+        $data['code'] = strtoupper($codeRandom);
         $data['islandId'] = '5d71c2b9-c9bd-4242-9dd9-195f08fe088f';
+        $uuidSalt = Uuid::uuid4()->toString();
+        $data['salt'] = Str::of($uuidSalt)->replace('-', '');
 
-        // $data['password'] = Hash::make($data['password']);
+        $data['password'] = Hash::make($data['password']);
 
         //Validate
         $request->validate([
-            'code' => 'required|unique:users',
             'roleId' => 'required',
             'name' => 'required',
             'gender' => 'required',
-            'nik' => 'required|min:16|unique:users|numeric',
+            'nik' => 'required|min:16|numeric',
             'username' => 'required|min:4|unique:users',
             'password' => 'required|min:6',
             'email' => 'required|email|unique:users',
-            'phone' => 'required|min:11|numeric|unique:users'
+            'phone' => 'required|min:11|numeric'
         ]);
 
         User::create($data);

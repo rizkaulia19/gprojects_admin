@@ -21,14 +21,14 @@
                         @endif
                 <form action="{{ route('users.store') }}" method="POST">
                     @csrf
-                    <div class="form-group mb-3">
+                    <!-- <div class="form-group mb-3">
                         <label for="code" class="form-control-label">Code</label>
                         <input  type="text"
                                 name="code" 
                                 value="{{ old('code') }}" 
                                 class="form-control @error('code') is-invalid @enderror"/>
                         @error('code') <div class="text-muted">{{ $message }}</div> @enderror
-                    </div>
+                    </div> -->
                     <div class="form-group mb-3">
                         <label for="roleId" class="form-control-label">Role</label>
                         <select name="roleId"

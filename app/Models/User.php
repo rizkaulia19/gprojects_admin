@@ -39,7 +39,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'phone', 'roleId', 'username', 'password', 'email', 'nik', 'address', 'isGpro', 'bio', 'gender', 'birthdate', 'createdAt'
+        'code', 'name', 'phone', 'roleId', 'username', 'password', 'email', 'nik', 'address', 'salt', 'isGpro', 'bio', 'gender', 'birthdate', 'createdAt'
     ];
 
     protected $keyType = 'string';

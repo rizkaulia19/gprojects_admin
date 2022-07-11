@@ -7,9 +7,6 @@
     <div class="container-fluid px-4">
         <div class="d-sm-flex align-items-center justify-content-between">
             <h1 class="mt-4">SPK Spesialisasi</h1>
-            <a href="" class="btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-sync text-white-50"></i> Muat ranking baru
-            </a>
         </div>
         <p class="mb-4">Daftar ranking spesialisasi berdasarkan spesialisasi yang kurang diminati</p>
         <div class="card">
@@ -25,7 +22,7 @@
                             <th>Total Proyek</th>
                             <th>Total Proyek Berhasil</th>
                             <th>Total Klik</th>
-                            <th>Total Score</th>
+                            <th>Total Skor</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -38,7 +35,7 @@
                             <th>Total Proyek</th>
                             <th>Total Proyek Berhasil</th>
                             <th>Total Klik</th>
-                            <th>Total Score</th>
+                            <th>Total Skor</th>
                         </tr>
                     </tfoot>
                     <tbody>

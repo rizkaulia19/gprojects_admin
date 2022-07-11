@@ -39,6 +39,7 @@ class CriteriaRepository extends BaseRepository
         $filterByProject = $filters['project'] ??= false;
         if ($filerByApplicant) {
             $query->select(['specializations.*', 'project_app.id as appId', 'project_app.projectId', 'project_app.status as status', 'user.id as idUser']);
+            $query->select(['project_app.id as appId', 'project_app.projectId', 'project_app.status as status', 'user.id as idUser']);
             $query->leftJoin('user_specializations as user', 'user.specializationId', '=', 'specializations.id');
             $query->leftJoin('project_applicants as project_app', 'project_app.userId', '=', 'user.userId');
             $query->where('specializations.id', $specializationsId);

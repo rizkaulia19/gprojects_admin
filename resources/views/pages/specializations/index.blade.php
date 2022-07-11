@@ -36,6 +36,7 @@
                             <th>Name</th>
                             <th>Color</th>
                             <th>Count in Project</th>
+                            <th>Total Click</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -47,6 +48,7 @@
                             <td>{{ $item->name }}</td>
                             <td class="row ms-0 me-0">{{ $item->color }}&nbsp;<div class="img-thumbnail mt-1" style="width:5px; height:17px; background-color:{{ $item->color }}"></div></td>
                             <td>{{ $item->project_specializations->count() }}</td>
+                            <td>{{ $item->click_specializations->count() }}</td>
                             <td>
                                 <a href="{{ route('specializations.show', $item->id) }}" class="btn btn-info btn-sm">
                                     <i class="fa fa-eye"></i>
