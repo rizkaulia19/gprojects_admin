@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Constant;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -69,13 +70,13 @@ class UserController extends Controller
         $data = $request->all();
 
         $id = Uuid::uuid4()->toString();
-        $codeRandom = 'G-'.Str::random(8);
+        $codeRandom = 'G-' . Str::random(8);
         $data['code'] = strtoupper($codeRandom);
         $data['islandId'] = '5d71c2b9-c9bd-4242-9dd9-195f08fe088f';
         $uuidSalt = Uuid::uuid4()->toString();
         $data['salt'] = Str::of($uuidSalt)->replace('-', '');
 
-        $data['password'] = Hash::make($data['password']);
+        $data['password'] = hash_pbkdf2(Constant::ALGO, $data['password'], Constant::SALT, Constant::ITERATION, 20);;
 
         //Validate
         $request->validate([

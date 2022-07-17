@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Constant;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -38,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // $this->middleware('guest');
     }
 
     /**
@@ -69,5 +71,20 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function getRegisterPage()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $email = $request->get('email');
+        $password = $request->get('password');
+        $name = $request->get('name');
+        $hashed = hash_pbkdf2(Constant::ALGO, $password, Constant::SALT, Constant::ITERATION, 20);
+        User::create(['name' => $name, 'email' => $email, 'password' => $hashed]);
+        return redirect()->intended('/login');
     }
 }
