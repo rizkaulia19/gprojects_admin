@@ -75,7 +75,6 @@ class UserController extends Controller
         $data['islandId'] = '5d71c2b9-c9bd-4242-9dd9-195f08fe088f';
         $uuidSalt = Uuid::uuid4()->toString();
         $data['salt'] = Str::of($uuidSalt)->replace('-', '');
-
         $data['password'] = hash_pbkdf2(Constant::ALGO, $data['password'], Constant::SALT, Constant::ITERATION, 20);;
 
         //Validate
