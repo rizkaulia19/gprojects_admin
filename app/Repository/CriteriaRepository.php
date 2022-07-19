@@ -38,8 +38,14 @@ class CriteriaRepository extends BaseRepository
         $filerByApplicant = $filters['applicant'] ??= false;
         $filterByProject = $filters['project'] ??= false;
         if ($filerByApplicant) {
-            $query->select(['specializations.*', 'project_app.id as appId', 'project_app.projectId', 'project_app.status as status', 'user.id as idUser']);
-            $query->select(['project_app.id as appId', 'project_app.projectId', 'project_app.status as status', 'user.id as idUser']);
+            $query->select([
+                'specializations.*', 'project_app.id as appId', 'project_app.projectId',
+                'project_app.status as status', 'user.id as idUser'
+            ]);
+            $query->select([
+                'project_app.id as appId', 'project_app.projectId', 'project_app.status as status',
+                'user.id as idUser'
+            ]);
             $query->leftJoin('user_specializations as user', 'user.specializationId', '=', 'specializations.id');
             $query->leftJoin('project_applicants as project_app', 'project_app.userId', '=', 'user.userId');
             $query->where('specializations.id', $specializationsId);
@@ -49,8 +55,12 @@ class CriteriaRepository extends BaseRepository
         if ($filterByProject) {
             $filerByStatus = $filters['status_project'] ??= 'succeed';
             $query->select(['specializations.*', 'project_app.id as appId', 'projects.id as projectId']);
-            $query->leftJoin('project_specializations as projects', 'projects.specializationId', '=', 'specializations.id');
-            $query->leftJoin('project_applicants as project_app', 'project_app.projectId', '=', 'projects.projectId');
+            $query->leftJoin(
+                'project_specializations as projects', 'projects.specializationId','=', 'specializations.id'
+            );
+            $query->leftJoin(
+                'project_applicants as project_app', 'project_app.projectId', '=', 'projects.projectId'
+            );
             $query->where('specializations.id', $specializationsId);
             $query->where('project_app.status', $filerByStatus);
             return $query->count();
@@ -59,19 +69,25 @@ class CriteriaRepository extends BaseRepository
 
     public function getRevenueSpecialization(string $specializationsId = ''): int
     {
-        $query = $this->getSpecializations(new ProjectSpecialization, $specializationsId, 'projectId', new Project, 'id');
+        $query = $this->getSpecializations(
+            new ProjectSpecialization, $specializationsId, 'projectId', new Project, 'id'
+        );
         return $query->sum('cost');
     }
 
     public function findC1(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(new UserSpecialization, $specializationIds, 'userId', new ProjectApplicant, 'userId');
+        $query = $this->getSpecializations(
+            new UserSpecialization, $specializationIds, 'userId', new ProjectApplicant, 'userId'
+        );
         return $query->count() === 0 ? 0.0 : pow($query->count(), self::C1_WEIGHT);
     }
 
     public function findC2(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(new ProjectSpecialization, $specializationIds, 'projectId', new Project, 'id');
+        $query = $this->getSpecializations(
+            new ProjectSpecialization, $specializationIds, 'projectId', new Project, 'id'
+        );
         $revenue = $query->sum('cost');
         return pow($revenue, self::C2_WEIGHT);
     }
@@ -90,7 +106,9 @@ class CriteriaRepository extends BaseRepository
 
     public function findC5(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(new ProjectSpecialization, $specializationIds, 'projectId', new ProjectApplicant, 'projectId');
+        $query = $this->getSpecializations(
+            new ProjectSpecialization, $specializationIds, 'projectId', new ProjectApplicant, 'projectId'
+        );
         $query->where('status', 'succeed');
         return  $query->count() === 0 ? 0.0 :  pow($query->count(), self::C5_WEIGHT);
     }
@@ -101,7 +119,10 @@ class CriteriaRepository extends BaseRepository
         return   $query->count() === 0 ? 0.0 :  pow($query->count(), self::C6_WEIGHT);
     }
 
-    private function getSpecializations(Model $specialModel, string $specializationIds = '', string $arrayColumn, Model $masterModel, string $filterIdColumn): Builder
+    private function getSpecializations(
+        Model $specialModel, string $specializationIds = '', string $arrayColumn,
+        Model $masterModel, string $filterIdColumn
+    ): Builder
     {
         $specializations = $specialModel::where('specializationId', $specializationIds)->get();
         $filteredIds = array_column($specializations->toArray(), $arrayColumn);
