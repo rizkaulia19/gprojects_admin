@@ -51,13 +51,16 @@ class LoginController extends Controller
     {
         $creds = $request->only('username', 'password');
         $creds['password'] = hash_pbkdf2(Constant::ALGO, $creds['password'], Constant::SALT, Constant::ITERATION, 20);
-        $user = User::where(['username' => $creds['username']])->first();
+        $user = User::where(['username' => $creds["username"]])->first();
+        if (!$user) {
+            return redirect()->back()->withError('Username atau password salah');
+        }
         if ($creds['password'] == $user->password) {
             Session::put('name', $user->name);
             Session::put('logon', true);
             return redirect()->intended();
         }
-        return redirect('/login')->withErrors(['username' => 'Username atau password salah', 'password' => 'Username atau password salah']);
+        return redirect()->back()->withError('Username atau password salah');
     }
     public function logout(Request $request)
     {

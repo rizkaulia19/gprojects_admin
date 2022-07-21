@@ -26,6 +26,9 @@
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{ route('login') }}">
+                                        @if(Session('error'))
+                                        <p class="text-danger">{{ session('error') }}</p>
+                                        @endif
                                         @csrf
                                         <div class="form-floating mb-3">
                                             <label for="inputUsername">Username</label>
@@ -58,8 +61,8 @@
                 </div>
             </main>
         </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="{{ mix('js/app.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
 </body>
 
 </html>
