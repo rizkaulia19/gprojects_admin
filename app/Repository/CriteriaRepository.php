@@ -46,12 +46,10 @@ class CriteriaRepository extends BaseRepository
         $filterByProject = $filters['project'] ??= false;
         if ($filerByApplicant) {
             $query->select([
-                'specializations.*', 'project_app.id as appId', 'project_app.projectId',
-                'project_app.status as status', 'user.id as idUser'
+                'specializations.*', 'project_app.id as appId', 'project_app.projectId', 'project_app.status as status', 'user.id as idUser'
             ]);
             $query->select([
-                'project_app.id as appId', 'project_app.projectId', 'project_app.status as status',
-                'user.id as idUser'
+                'project_app.id as appId', 'project_app.projectId', 'project_app.status as status', 'user.id as idUser'
             ]);
             $query->leftJoin('user_specializations as user', 'user.specializationId', '=', 'specializations.id');
             $query->leftJoin('project_applicants as project_app', 'project_app.userId', '=', 'user.userId');
@@ -94,13 +92,7 @@ class CriteriaRepository extends BaseRepository
 
     public function findW1(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(
-            new UserSpecialization,
-            $specializationIds,
-            'userId',
-            new ProjectApplicant,
-            'userId'
-        );
+        $query = $this->getSpecializations(new UserSpecialization, $specializationIds, 'userId', new ProjectApplicant, 'userId');
         if ($this->w1_Normalize['type'] == self::COST) {
             return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w1_Normalize['value']);
         }
@@ -109,13 +101,7 @@ class CriteriaRepository extends BaseRepository
 
     public function findW2(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(
-            new ProjectSpecialization,
-            $specializationIds,
-            'projectId',
-            new Project,
-            'id'
-        );
+        $query = $this->getSpecializations(new ProjectSpecialization, $specializationIds, 'projectId', new Project, 'id');
         $revenue = $query->sum('cost');
         if ($this->w2_Normalize['type'] == self::COST) {
             return pow($revenue, -$this->w2_Normalize['value']);
@@ -143,13 +129,7 @@ class CriteriaRepository extends BaseRepository
 
     public function findW5(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(
-            new ProjectSpecialization,
-            $specializationIds,
-            'projectId',
-            new ProjectApplicant,
-            'projectId'
-        );
+        $query = $this->getSpecializations(new ProjectSpecialization, $specializationIds, 'projectId', new ProjectApplicant, 'projectId');
         $query->where('status', 'succeed');
         if ($this->w5_Normalize['type'] == self::COST) {
             return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w5_Normalize['value']);
@@ -166,11 +146,7 @@ class CriteriaRepository extends BaseRepository
         return $query->count() === 0 ? 0.0 : pow($query->count(), $this->w6_Normalize['value']);
     }
 
-    private function getSpecializations(
-        Model $specialModel,
-        string $specializationIds = '',
-        string $arrayColumn,
-        Model $masterModel,
+    private function getSpecializations(Model $specialModel, string $specializationIds = '', string $arrayColumn, Model $masterModel,
         string $filterIdColumn
     ): Builder {
         $specializations = $specialModel::where('specializationId', $specializationIds)->get();
