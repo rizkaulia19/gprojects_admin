@@ -15,13 +15,13 @@ use Illuminate\Database\Eloquent\Model;
 class CriteriaRepository extends BaseRepository
 {
     private const COST = "COST";
-    private const NON_COST = "NON_COST";
-    private $c1_Normalize;
-    private $c2_Normalize;
-    private $c3_Normalize;
-    private $c4_Normalize;
-    private $c5_Normalize;
-    private $c6_Normalize;
+    private const BENEFIT = "BENEFIT";
+    private $w1_Normalize;
+    private $w2_Normalize;
+    private $w3_Normalize;
+    private $w4_Normalize;
+    private $w5_Normalize;
+    private $w6_Normalize;
 
     public function __construct()
     {
@@ -92,7 +92,7 @@ class CriteriaRepository extends BaseRepository
         return $query->sum('cost');
     }
 
-    public function findC1(string $specializationIds = ''): float
+    public function findW1(string $specializationIds = ''): float
     {
         $query = $this->getSpecializations(
             new UserSpecialization,
@@ -101,13 +101,13 @@ class CriteriaRepository extends BaseRepository
             new ProjectApplicant,
             'userId'
         );
-        if ($this->c1_Normalize['type'] == self::COST) {
-            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->c1_Normalize['value']);
+        if ($this->w1_Normalize['type'] == self::COST) {
+            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w1_Normalize['value']);
         }
-        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->c1_Normalize['value']);
+        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->w1_Normalize['value']);
     }
 
-    public function findC2(string $specializationIds = ''): float
+    public function findW2(string $specializationIds = ''): float
     {
         $query = $this->getSpecializations(
             new ProjectSpecialization,
@@ -117,31 +117,31 @@ class CriteriaRepository extends BaseRepository
             'id'
         );
         $revenue = $query->sum('cost');
-        if ($this->c2_Normalize['type'] == self::COST) {
-            return pow($revenue, -$this->c2_Normalize['value']);
+        if ($this->w2_Normalize['type'] == self::COST) {
+            return pow($revenue, -$this->w2_Normalize['value']);
         }
-        return pow($revenue, $this->c2_Normalize['value']);
+        return pow($revenue, $this->w2_Normalize['value']);
     }
 
-    public function findC3(string $specializationIds = ''): float
+    public function findW3(string $specializationIds = ''): float
     {
         $query = UserSpecialization::where('specializationId', $specializationIds);
-        if ($this->c3_Normalize['type'] == self::COST) {
-            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->c3_Normalize['value']);
+        if ($this->w3_Normalize['type'] == self::COST) {
+            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w3_Normalize['value']);
         }
-        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->c3_Normalize['value']);
+        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->w3_Normalize['value']);
     }
 
-    public function findC4(string $specializationIds = ''): float
+    public function findW4(string $specializationIds = ''): float
     {
         $query = ProjectSpecialization::where('specializationId', $specializationIds);
-        if ($this->c4_Normalize['type'] == self::COST) {
-            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->c4_Normalize['value']);
+        if ($this->w4_Normalize['type'] == self::COST) {
+            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w4_Normalize['value']);
         }
-        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->c4_Normalize['value']);
+        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->w4_Normalize['value']);
     }
 
-    public function findC5(string $specializationIds = ''): float
+    public function findW5(string $specializationIds = ''): float
     {
         $query = $this->getSpecializations(
             new ProjectSpecialization,
@@ -151,19 +151,19 @@ class CriteriaRepository extends BaseRepository
             'projectId'
         );
         $query->where('status', 'succeed');
-        if ($this->c5_Normalize['type'] == self::COST) {
-            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->c5_Normalize['value']);
+        if ($this->w5_Normalize['type'] == self::COST) {
+            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w5_Normalize['value']);
         }
-        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->c5_Normalize['value']);
+        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->w5_Normalize['value']);
     }
 
-    public function findC6(string $specializationIds = ''): float
+    public function findW6(string $specializationIds = ''): float
     {
         $query = ClickSpecialization::where('specializationId', $specializationIds);
-        if ($this->c6_Normalize['type'] == self::COST) {
-            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->c6_Normalize['value']);
+        if ($this->w6_Normalize['type'] == self::COST) {
+            return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w6_Normalize['value']);
         }
-        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->c6_Normalize['value']);
+        return $query->count() === 0 ? 0.0 : pow($query->count(), $this->w6_Normalize['value']);
     }
 
     private function getSpecializations(
@@ -180,17 +180,21 @@ class CriteriaRepository extends BaseRepository
 
     private function normalizeCriteria()
     {
-        $c1 = 12.5;
-        $c2 = 20;
-        $c3 = 17.5;
-        $c4 = 30;
-        $c5 = 12.5;
-        $c6 = 7.5;
-        $this->c1_Normalize = ['type' => self::COST, 'value' => ($c1 / ($c1 + $c2 + $c3 + $c4 + $c5 + $c6))];
-        $this->c2_Normalize = ['type' => self::NON_COST, 'value' => $c2 / ($c1 + $c2 + $c3 + $c4 + $c5 + $c6)];
-        $this->c3_Normalize = ['type' => self::COST, 'value' => ($c3 / ($c1 + $c2 + $c3 + $c4 + $c5 + $c6))];
-        $this->c4_Normalize = ['type' => self::NON_COST, 'value' => $c4 / ($c1 + $c2 + $c3 + $c4 + $c5 + $c6)];
-        $this->c5_Normalize = ['type' => self::NON_COST, 'value' => $c5 / ($c1 + $c2 + $c3 + $c4 + $c5 + $c6)];
-        $this->c6_Normalize = ['type' => self::COST, 'value' => ($c6 / ($c1 + $c2 + $c3 + $c4 + $c5 + $c6))];
+        $w1 = 12.5;
+        $w2 = 20;
+        $w3 = 17.5;
+        $w4 = 30;
+        $w5 = 12.5;
+        $w6 = 7.5;
+        $totalW = $w1 + $w2 + $w3 + $w4 + $w5 + $w6;
+        $typeCost = self::COST;
+        $typeBenefit = self::BENEFIT;
+
+        $this->w1_Normalize = ['type' => $typeCost, 'value' => ($w1 / $totalW)];
+        $this->w2_Normalize = ['type' => $typeBenefit, 'value' => ($w2 / $totalW)];
+        $this->w3_Normalize = ['type' => $typeCost, 'value' => ($w3 / $totalW)];
+        $this->w4_Normalize = ['type' => $typeBenefit, 'value' => ($w4 / $totalW)];
+        $this->w5_Normalize = ['type' => $typeBenefit, 'value' => ($w5 / $totalW)];
+        $this->w6_Normalize = ['type' => $typeCost, 'value' => ($w6 / $totalW)];
     }
 }

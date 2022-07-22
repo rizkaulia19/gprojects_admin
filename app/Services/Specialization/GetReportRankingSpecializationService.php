@@ -23,12 +23,12 @@ class GetReportRankingSpecializationService
         $totalS = 0;
         $results = [];
         for ($i = 0; $i < count($criterias); $i++) {
-            $valueS[] = $this->criteriaRepository->findC1($criterias[$i]['id']) *
-                $this->criteriaRepository->findC2($criterias[$i]['id']) *
-                $this->criteriaRepository->findC3($criterias[$i]['id']) *
-                $this->criteriaRepository->findC4($criterias[$i]['id']) *
-                $this->criteriaRepository->findC5($criterias[$i]['id']) *
-                $this->criteriaRepository->findC6($criterias[$i]['id']);
+            $valueS[] = $this->criteriaRepository->findW1($criterias[$i]['id']) *
+                $this->criteriaRepository->findW2($criterias[$i]['id']) *
+                $this->criteriaRepository->findW3($criterias[$i]['id']) *
+                $this->criteriaRepository->findW4($criterias[$i]['id']) *
+                $this->criteriaRepository->findW5($criterias[$i]['id']) *
+                $this->criteriaRepository->findW6($criterias[$i]['id']);
             $results[] = [
                 self::ID_KEY => $criterias[$i][self::ID_KEY],
                 self::NAME_KEY => $criterias[$i][self::NAME_KEY],
@@ -49,9 +49,9 @@ class GetReportRankingSpecializationService
         }
         for ($rIndex = 0; $rIndex < count($results); $rIndex++) {
             $results[$rIndex] += [
-                'score' => $results[$rIndex][self::S_VALUE_KEY] / $totalS
+                'valueV' => $results[$rIndex][self::S_VALUE_KEY] / $totalS
             ];
         }
-        return array_values(collect($results)->sortBy('score')->toArray());
+        return array_values(collect($results)->sortBy('valueV')->toArray());
     }
 }

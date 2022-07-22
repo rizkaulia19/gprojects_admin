@@ -50,7 +50,7 @@
                             <td>{{ $item['total_project'] }}</td>
                             <td>{{ $item['succeed_project'] }}</td>
                             <td>{{ $item['total_click'] }}</td>
-                            <td>{{ number_format($item['score'], 6, '.', '') }}</td>
+                            <td>{{ number_format($item['valueV'], 6, '.', '') }}</td>
                         </tr>
                         @empty
                         <tr>
