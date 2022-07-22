@@ -152,13 +152,15 @@
                 <div id="carouselAttachments" class="carousel carousel-dark slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         @foreach($item->project_photos as $key => $attachments) 
-                        <button type="button" data-bs-target="#carouselAttachments" data-bs-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}"></button>
+                        <button type="button" data-bs-target="#carouselAttachments" data-bs-slide-to="{{ $key }}"
+                            class="{{ $key == 0 ? 'active' : '' }}"></button>
                         @endforeach
                     </div>
                     <div class="carousel-inner">
                         @foreach($item->project_photos as $key => $attachments) 
                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                            <img src="{{ $attachments->uri }}?key=GPROJECTS_54376A57AC5843349DBE6A57E9EE7B0F" class="d-block w-25 mx-auto" alt="{{ $attachments->name }}">
+                            <img src="{{ $attachments->uri }}?key=GPROJECTS_54376A57AC5843349DBE6A57E9EE7B0F"
+                                class="d-block w-25 mx-auto" alt="{{ $attachments->name }}">
                         </div>
                         @endforeach
                     </div>

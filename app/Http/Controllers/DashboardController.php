@@ -13,7 +13,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $count_total_user = User::where('roleId', '=', 'c7315ccc-c8c9-4e70-9b29-eedc9c872fa7')->orWhere('roleId', '=', 'a0087d9f-5830-4878-9d23-fe99cfbe63e9')->count();
+        $count_total_user = User::where('roleId', '=', 'c7315ccc-c8c9-4e70-9b29-eedc9c872fa7')
+            ->orWhere('roleId', '=', 'a0087d9f-5830-4878-9d23-fe99cfbe63e9')->count();
         $count_total_proyek = ProjectApplicant::where('status', '=', 'succeed')->orWhere('status', '=', 'waiting_approval')->count();
         $count_total_proyek_aktif = ProjectApplicant::where('status', '=', 'waiting_approval')->count();
         $count_total_proyek_cancel = ProjectApplicant::where('status', '=', 'canceled')->count();
@@ -42,21 +43,6 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
-        //Chart Area Total User yang mendaftar
-        // $monthly_user = User::select(DB::raw('MONTH(createdAt) as month'), DB::raw('count(*) as user')) 
-        //     ->groupBy('month') 
-        //     ->get();
-
-        // $monthly_user = User::select(
-        //         DB::raw('count(id) as data'),
-        //         DB::raw("DATE_FORMAT(createdAt, '%m-%Y') new_date"),
-        //         DB::raw('YEAR(createdAt) as year, MONTH(createdAt) as month')
-        //     )
-        //     ->groupBy('year','month')
-        //     ->get();
-
-        // dd($monthly_user);
-
         //Line chart total transaksi
         $transaction_sum = [
             'subscription' => Transaction::where('transactionTypeId', '781877e1-1ec5-4911-8414-6f0d3d220035')->sum('amount'),
@@ -76,15 +62,6 @@ class DashboardController extends Controller
             'project' => Transaction::where('transactionTypeId', 'd7d9110b-15c0-4613-8d27-f3f2fcd8a061')->count(),
             'total' => Transaction::count()
         ];
-
-        // $data = [];
-
-        // foreach($monthly_user as $row) {
-        //     $data['label'][] = $row->day_name;
-        //     $data['data'][] = (int) $row->count;
-        //   }
-
-        // $data['chart_data'] = json_encode($data);
 
         return view('pages.dashboard', [
             'count_total_user' => $count_total_user,
