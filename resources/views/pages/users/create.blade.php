@@ -21,14 +21,6 @@
                         @endif
                 <form action="{{ route('users.store') }}" method="POST">
                     @csrf
-                    <!-- <div class="form-group mb-3">
-                        <label for="code" class="form-control-label">Code</label>
-                        <input  type="text"
-                                name="code" 
-                                value="{{ old('code') }}" 
-                                class="form-control @error('code') is-invalid @enderror"/>
-                        @error('code') <div class="text-muted">{{ $message }}</div> @enderror
-                    </div> -->
                     <div class="form-group mb-3">
                         <label for="roleId" class="form-control-label">Role</label>
                         <select name="roleId"
@@ -129,22 +121,6 @@
                                 class="form-control @error('bio') is-invalid @enderror"/>
                         @error('bio') <div class="text-muted">{{ $message }}</div> @enderror
                     </div>
-                    <!-- <div class="form-group mb-3">
-                        <label for="ratingAsGpro" class="form-control-label">Rating GPro</label>
-                        <input  type="text"
-                                name="ratingAsGpro" 
-                                value="{{ old('ratingAsGpro') }}" 
-                                class="form-control @error('ratingAsGpro') is-invalid @enderror"/>
-                        @error('ratingAsGpro') <div class="text-muted">{{ $message }}</div> @enderror
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="ratingAsGClient" class="form-control-label">Rating GCLient</label>
-                        <input  type="text"
-                                name="ratingAsGclient" 
-                                value="{{ old('ratingAsGclient') }}" 
-                                class="form-control @error('ratingAsGpro') is-invalid @enderror"/>
-                        @error('ratingAsGClient') <div class="text-muted">{{ $message }}</div> @enderror
-                    </div> -->
                     <div class="form-group">
                         <button class="btn btn-primary btn-block" type="submit">Add User</button>
                     </div>

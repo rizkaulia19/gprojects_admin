@@ -40,7 +40,7 @@
                             </tr>
                             <tr>
                                 <th>Cost</th>
-                                <td>{{ $item->cost }}</td>
+                                <td>{{ number_format($item->cost, 0, '', '.') }}</td>
                             </tr>
                             <tr>
                                 <th>GClient</th>
