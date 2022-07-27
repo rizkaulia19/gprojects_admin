@@ -23,24 +23,21 @@ class GetReportRankingSpecializationService
         $totalS = 0;
         $results = [];
         for ($i = 0; $i < count($criterias); $i++) {
-            $valueS[] = $this->criteriaRepository->findC1($criterias[$i]['id']) *
-                $this->criteriaRepository->findC2($criterias[$i]['id']) *
-                $this->criteriaRepository->findC3($criterias[$i]['id']) *
-                $this->criteriaRepository->findC4($criterias[$i]['id']) *
-                $this->criteriaRepository->findC5($criterias[$i]['id']) *
-                $this->criteriaRepository->findC6($criterias[$i]['id']);
+            $valueS[] = $this->criteriaRepository->findW1($criterias[$i]['id']) *
+                $this->criteriaRepository->findW2($criterias[$i]['id']) *
+                $this->criteriaRepository->findW3($criterias[$i]['id']) *
+                $this->criteriaRepository->findW4($criterias[$i]['id']) *
+                $this->criteriaRepository->findW5($criterias[$i]['id']) *
+                $this->criteriaRepository->findW6($criterias[$i]['id']);
             $results[] = [
                 self::ID_KEY => $criterias[$i][self::ID_KEY],
                 self::NAME_KEY => $criterias[$i][self::NAME_KEY],
-                'total_applicant' => $this->criteriaRepository->countByField(
-                    $criterias[$i][self::ID_KEY], ['applicant' => true]
-                ),
+                'total_applicant' => $this->criteriaRepository->countByField($criterias[$i][self::ID_KEY], ['applicant' => true]),
                 'revenue' => $this->criteriaRepository->getRevenueSpecialization($criterias[$i][self::ID_KEY]),
                 'total_user' => count($criterias[$i]['user_specializations']),
                 'total_project' => count($criterias[$i]['project_specializations']),
                 'succeed_project' => $this->criteriaRepository->countByField($criterias[$i][self::ID_KEY], [
-                    'project' => true,
-                    'status_project' => 'succeed'
+                    'project' => true, 'status_project' => 'succeed'
                 ]),
                 'total_click' => count($criterias[$i]['click_specializations']),
                 self::S_VALUE_KEY => $valueS[$i]
@@ -49,9 +46,9 @@ class GetReportRankingSpecializationService
         }
         for ($rIndex = 0; $rIndex < count($results); $rIndex++) {
             $results[$rIndex] += [
-                'score' => $results[$rIndex][self::S_VALUE_KEY] / $totalS
+                'valueV' => $results[$rIndex][self::S_VALUE_KEY] / $totalS
             ];
         }
-        return array_values(collect($results)->sortBy('score')->toArray());
+        return array_values(collect($results)->sortBy('valueV')->toArray());
     }
 }

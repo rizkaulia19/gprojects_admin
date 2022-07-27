@@ -81,7 +81,6 @@ class UserController extends Controller
         $request->validate([
             'roleId' => 'required',
             'name' => 'required',
-            'gender' => 'required',
             'nik' => 'required|min:16|numeric',
             'username' => 'required|min:4|unique:users',
             'password' => 'required|min:6',
@@ -120,9 +119,20 @@ class UserController extends Controller
         $data = $request->all();
 
         $item = User::findOrFail($id);
-        $item->update($data);
 
-        return redirect()->route('users.index');
+        //Validate
+        $request->validate([
+            'roleId' => 'required',
+            'name' => 'required',
+            'nik' => 'required|min:16|numeric',
+            'username' => 'required|min:4|unique:users',
+            'password' => 'required|min:6',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required|min:11|numeric'
+        ]);
+
+        $item->update($data);
+        return redirect()->route('users.index')->with('updated', 'User updated successfully!');
     }
 
     /**

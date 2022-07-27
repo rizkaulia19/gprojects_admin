@@ -7,9 +7,6 @@
     <div class="container-fluid px-4">
         <div class="d-sm-flex align-items-center justify-content-between">
             <h1 class="mt-4">Projects</h1>
-            <!-- <a href="{{ route('projects.create') }}" class="btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-plus text-white-50"></i> Create Role
-            </a> -->
         </div>
         <div class="card">
             <div class="card-body">
@@ -45,7 +42,7 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $item->code }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->cost }}</td>
+                                <td>{{ number_format($item->cost, 0, '', '.') }}</td>
                                 <td>{{ $item->user->name}}</td>
                                 @if ($item->project_applicants->count())
                                 <td>{{ $item->project_applicants->first()->user->name }}</td>
