@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="nik" class="form-control-label">NIK</label>
-                        <input  type="text"
+                        <input  type="number"
                                 name="nik" 
                                 value="{{ old('nik') }}" 
                                 class="form-control @error('nik') is-invalid @enderror"/>
@@ -99,7 +99,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="phone" class="form-control-label">No HP</label>
-                        <input  type="text"
+                        <input  type="number"
                                 name="phone" 
                                 value="{{ old('phone') }}" 
                                 class="form-control @error('phone') is-invalid @enderror"/>

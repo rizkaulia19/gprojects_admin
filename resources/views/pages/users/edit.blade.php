@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="nik" class="form-control-label">NIK</label>
-                        <input  type="text"
+                        <input  type="number"
                                 name="nik" 
                                 value="{{ old('nik') ? old('nik') : $item->nik }}" 
                                 {{ $item->nik ? 'readonly' : '' }}
@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="phone" class="form-control-label">No HP</label>
-                        <input  type="text"
+                        <input  type="number"
                                 name="phone" 
                                 value="{{ old('phone') ? old('phone') : $item->phone }}" 
                                 class="form-control @error('phone') is-invalid @enderror"/>
