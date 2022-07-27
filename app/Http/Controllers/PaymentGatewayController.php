@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PaymentGatewayRequest;
+use App\Http\Requests\PaymentGatewayUpdateRequest;
 use App\Models\PaymentGateway;
 use Ramsey\Uuid\Uuid;
 
@@ -35,7 +36,7 @@ class PaymentGatewayController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PaymentGatewayRequest;  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PaymentGatewayRequest $request)
@@ -85,7 +86,7 @@ class PaymentGatewayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PaymentGatewayRequest $request)
+    public function update(PaymentGatewayUpdateRequest $request)
     {
         $data = $request->all();
 

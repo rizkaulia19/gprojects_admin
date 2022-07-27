@@ -18,38 +18,38 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', 'DashboardController@index')->name('dashboard')->middleware(['authRoute']);
-Route::get('/dss', 'CriteriaController@index')->name('dss')->middleware(['authRoute']);
+Route::get('/', 'DashboardController@index')->name('dashboard')->middleware(['authRoute', 'preventBack']);
+Route::get('/dss', 'CriteriaController@index')->name('dss')->middleware(['authRoute', 'preventBack']);
 Route::resource('projects', 'ProjectController')->parameters([
     'projects' => 'id'
-])->middleware(['authRoute']);
-Route::resource('project-activities', 'ProjectActivityController')->parameters([
-    'project-activities' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
+// Route::resource('project-activities', 'ProjectActivityController')->parameters([
+//     'project-activities' => 'id'
+// ])->middleware(['authRoute', 'preventBack']);
 Route::resource('users', 'UserController')->parameters([
     'users' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
 Route::resource('specializations', 'SpecializationController')->parameters([
     'specializations' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
 Route::resource('roles', 'RoleController')->parameters([
     'roles' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
 Route::resource('banks', 'BankController')->parameters([
     'banks' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
 Route::resource('advertise-types', 'AdvertiseTypeController')->parameters([
     'advertise-types' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
 Route::resource('advertises', 'AdvertiseController')->parameters([
     'advertises' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
 Route::resource('payment-gateways', 'PaymentGatewayController')->parameters([
     'payment-gateways' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
 Route::resource('payment-types', 'PaymentTypeController')->parameters([
     'payment-types' => 'id'
-])->middleware(['authRoute']);
+])->middleware(['authRoute', 'preventBack']);
 Route::get('login', 'Auth\LoginController@getLoginPage')->name('loginPage');
 Route::get('register', 'Auth\RegisterController@getRegisterPage')->name('registerPage');
 Route::post('post', 'Auth\LoginController@login')->name('login');

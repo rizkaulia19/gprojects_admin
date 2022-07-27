@@ -19,8 +19,8 @@ class SpecializationUpdateRequest extends BaseFormRequest
             'id' => ['required', 'uuid'],
             'name' => ['required', 'max:255'],
             'code' => ['string', 'max:255'],
-            'image' => ['file', 'mimes:jpeg,png,jpg'],
-            'icon' => ['file', 'mimes:jpeg,png,jpg'],
+            'image' => ['string'],
+            'icon' => ['string'],
             'color' => ['string', 'max:255']
         ]);
         return true;

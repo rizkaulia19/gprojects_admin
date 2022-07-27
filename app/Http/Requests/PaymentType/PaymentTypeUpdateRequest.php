@@ -22,13 +22,11 @@ class PaymentTypeUpdateRequest extends BaseFormRequest
             ],
             'paymentGatewayId' => [
                 'uuid',
-                'exists:payment_gateways',
-                'id'
+                'exists:payment_gateways,id'
             ],
             'paymentTypeCategoryId' => [
                 'uuid',
-                'exists:payment_type_categories',
-                'id'
+                'exists:payment_type_categories,id'
             ],
             'name' => [
                 'max:255'

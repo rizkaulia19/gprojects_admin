@@ -16,10 +16,10 @@ class SpecializationCreateRequest extends BaseFormRequest
         $this->setRules([
             'name' => ['required', 'max:255'],
             'code' => ['required', 'max:255'],
-            'image' => ['file', 'mimes:jpeg,png,jpg'],
-            'icon' => ['file', 'mimes:jpeg,png,jpg'],
+            'image' => ['string'],
+            'icon' => ['string'],
             'color' => ['required', 'max:255']
         ]);
-        return false;
+        return true;
     }
 }
