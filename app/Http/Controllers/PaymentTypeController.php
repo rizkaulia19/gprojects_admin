@@ -56,7 +56,7 @@ class PaymentTypeController extends Controller
         $id = Uuid::uuid4()->toString();
 
         PaymentType::create($data);
-        return redirect()->route('payment-types.index')->with('success', 'Payment Type created successfully!');
+        return redirect()->route('payment-types.index')->with('success', 'Payment gateway channel created successfully!');
     }
 
     /**
@@ -109,7 +109,7 @@ class PaymentTypeController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('payment-types.index');
+        return redirect()->route('payment-types.index')->with('updated', 'Payment gateway channel updated successfully!');
     }
 
     /**

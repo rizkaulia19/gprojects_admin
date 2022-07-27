@@ -45,7 +45,7 @@ class AdvertiseTypeController extends Controller
         $id = Uuid::uuid4()->toString();
 
         AdvertiseType::create($data);
-        return redirect()->route('advertise-types.index')->with('success', 'Advertise Type created successfully!');
+        return redirect()->route('advertise-types.index')->with('success', 'Advertise type created successfully!');
     }
 
     /**
@@ -93,7 +93,7 @@ class AdvertiseTypeController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('advertise-types.index');
+        return redirect()->route('advertise-types.index')->with('updated', 'Advertise type updated successfully!');
     }
 
     /**

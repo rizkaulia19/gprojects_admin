@@ -106,7 +106,7 @@ class AdvertiseController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('advertises.index');
+        return redirect()->route('advertises.index')->with('updated', 'Advertise updated successfully!');
     }
 
     /**

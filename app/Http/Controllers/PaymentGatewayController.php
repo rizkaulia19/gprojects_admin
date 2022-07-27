@@ -46,7 +46,7 @@ class PaymentGatewayController extends Controller
         $id = Uuid::uuid4()->toString();
 
         PaymentGateway::create($data);
-        return redirect()->route('payment-gateways.index')->with('success', 'Payment Gateway created successfully!');
+        return redirect()->route('payment-gateways.index')->with('success', 'Payment gateway created successfully!');
     }
 
     /**
@@ -94,7 +94,7 @@ class PaymentGatewayController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('payment-gateways.index');
+        return redirect()->route('payment-gateways.index')->with('updated', 'Payment gateway updated successfully!');
     }
 
     /**

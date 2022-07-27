@@ -94,7 +94,7 @@ class RoleController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('updated', 'Role updated successfully!');
     }
 
     /**

@@ -93,7 +93,7 @@ class SpecializationController extends Controller
         $item = Specialization::findOrFail($request->id);
         $item->update($data);
 
-        return redirect()->route('specializations.index');
+        return redirect()->route('specializations.index')->with('updated', 'Specialization updated successfully!');
     }
 
     /**

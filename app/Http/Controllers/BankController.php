@@ -94,7 +94,7 @@ class BankController extends Controller
         $data['image'] = '';
         $item->update($data);
 
-        return redirect()->route('banks.index');
+        return redirect()->route('banks.index')->with('updated', 'Bank updated successfully!');
     }
 
     /**

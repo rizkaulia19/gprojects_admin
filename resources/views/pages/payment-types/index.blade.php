@@ -15,7 +15,12 @@
             <div class="card-body">
             @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Payment Type created successfully!</strong> Check for the details below.
+                        <strong>Payment gateway channel created successfully!</strong> Check for the details below.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @elseif ($message = Session::get('updated'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Payment gateway channel updated successfully!</strong> Check for the details below.
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
