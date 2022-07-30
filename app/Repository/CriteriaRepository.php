@@ -92,7 +92,9 @@ class CriteriaRepository extends BaseRepository
 
     public function findW1(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(new UserSpecialization, $specializationIds, 'userId', new ProjectApplicant, 'userId');
+        $query = $this->getSpecializations(
+            new UserSpecialization, $specializationIds, 'userId', new ProjectApplicant, 'userId'
+        );
         if ($this->w1_Normalize['type'] == self::COST) {
             return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w1_Normalize['value']);
         }
@@ -101,7 +103,9 @@ class CriteriaRepository extends BaseRepository
 
     public function findW2(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(new ProjectSpecialization, $specializationIds, 'projectId', new Project, 'id');
+        $query = $this->getSpecializations(
+            new ProjectSpecialization, $specializationIds, 'projectId', new Project, 'id'
+        );
         $revenue = $query->sum('cost');
         if ($this->w2_Normalize['type'] == self::COST) {
             return pow($revenue, -$this->w2_Normalize['value']);
@@ -129,7 +133,9 @@ class CriteriaRepository extends BaseRepository
 
     public function findW5(string $specializationIds = ''): float
     {
-        $query = $this->getSpecializations(new ProjectSpecialization, $specializationIds, 'projectId', new ProjectApplicant, 'projectId');
+        $query = $this->getSpecializations(
+            new ProjectSpecialization, $specializationIds, 'projectId', new ProjectApplicant, 'projectId'
+        );
         $query->where('status', 'succeed');
         if ($this->w5_Normalize['type'] == self::COST) {
             return $query->count() === 0 ? 0.0 : pow($query->count(), -$this->w5_Normalize['value']);
@@ -146,8 +152,9 @@ class CriteriaRepository extends BaseRepository
         return $query->count() === 0 ? 0.0 : pow($query->count(), $this->w6_Normalize['value']);
     }
 
-    private function getSpecializations(Model $specialModel, string $specializationIds = '', string $arrayColumn, Model $masterModel,
-        string $filterIdColumn
+    private function getSpecializations(
+        Model $specialModel, string $specializationIds = '', string $arrayColumn,
+        Model $masterModel, string $filterIdColumn
     ): Builder {
         $specializations = $specialModel::where('specializationId', $specializationIds)->get();
         $filteredIds = array_column($specializations->toArray(), $arrayColumn);

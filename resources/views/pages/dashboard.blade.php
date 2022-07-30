@@ -97,7 +97,7 @@
             <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fas fa-chart-line me-1"></i>
+                        <i class="fas fa-chart-bar me-1"></i>
                         Jumlah Transaksi
                     </div>
                     <div class="card-body"><canvas id="transactionCountChart" width="100%"></canvas></div>
@@ -107,7 +107,7 @@
             <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fas fa-chart-line me-1"></i>
+                        <i class="fas fa-chart-bar me-1"></i>
                         Total Transaksi
                     </div>
                     <div class="card-body"><canvas id="transactionSumChart" width="100%" ></canvas></div>
@@ -291,10 +291,10 @@ var pie_chart_keahlian_tersedia = new Chart(ctx, {
 });
 
 
-//Chart line total transaksi
+//Chart bar total transaksi
 var ctx = document.getElementById("transactionSumChart");
 var transactionSumChart = new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
         labels: ["Subscription", "Advertise", "Top Up", "Withdraw", "Project"],
         datasets: [{
@@ -305,9 +305,8 @@ var transactionSumChart = new Chart(ctx, {
                 {{ $transaction_sum['withdraw'] }},
                 {{ $transaction_sum['project'] }}
             ],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0
+            backgroundColor: "rgb(75, 192, 192)",
+            borderColor: "rgb(75, 192, 192)"
         }],
     },
     options: {
@@ -335,10 +334,10 @@ var transactionSumChart = new Chart(ctx, {
     }
 });
 
-//Chart line jumlah transaksi
+//Chart bar jumlah transaksi
 var ctx = document.getElementById("transactionCountChart");
 var transactionCountChart = new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
         labels: ["Subscription", "Advertise", "Top Up", "Withdraw", "Project"],
         datasets: [{
@@ -349,9 +348,8 @@ var transactionCountChart = new Chart(ctx, {
                 {{ $transaction_count['withdraw'] }},
                 {{ $transaction_count['project'] }}
             ],
-            fill: false,
+            backgroundColor: '#F23BAD',
             borderColor: '#F23BAD',
-            tension: 0
         }],
     },
     options: {

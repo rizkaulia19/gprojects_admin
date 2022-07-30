@@ -34,8 +34,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $item = User::with(['user_specializations'])
-            ->findOrFail($id);
+        $item = User::with(['user_specializations'])->findOrFail($id);
 
         return view('pages.users.detail', [
             'item' => $item
@@ -53,7 +52,6 @@ class UserController extends Controller
 
         return view('pages.users.create')->with([
             'roles' => $roles,
-            // ('success', 'Data baru berhasil ditambah!')
         ]);
 
         return back()->with('success', 'Data baru berhasil ditambah!');
@@ -125,9 +123,9 @@ class UserController extends Controller
             'roleId' => 'required',
             'name' => 'required',
             'nik' => 'required|min:16|numeric',
-            'username' => 'required|min:4|unique:users',
+            'username' => 'required|min:4',
             'password' => 'required|min:6',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'phone' => 'required|min:11|numeric'
         ]);
 

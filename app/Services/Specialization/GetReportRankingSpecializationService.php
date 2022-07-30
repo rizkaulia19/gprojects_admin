@@ -32,7 +32,9 @@ class GetReportRankingSpecializationService
             $results[] = [
                 self::ID_KEY => $criterias[$i][self::ID_KEY],
                 self::NAME_KEY => $criterias[$i][self::NAME_KEY],
-                'total_applicant' => $this->criteriaRepository->countByField($criterias[$i][self::ID_KEY], ['applicant' => true]),
+                'total_applicant' => $this->criteriaRepository->countByField(
+                    $criterias[$i][self::ID_KEY], ['applicant' => true]
+                ),
                 'revenue' => $this->criteriaRepository->getRevenueSpecialization($criterias[$i][self::ID_KEY]),
                 'total_user' => count($criterias[$i]['user_specializations']),
                 'total_project' => count($criterias[$i]['project_specializations']),

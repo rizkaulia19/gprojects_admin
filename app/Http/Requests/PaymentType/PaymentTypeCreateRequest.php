@@ -30,7 +30,6 @@ class PaymentTypeCreateRequest extends BaseFormRequest
                 'required',
                 'max:255'
             ],
-            'image' => ['required'],
             'isAvailable' => [
                 'required',
                 'boolean'
