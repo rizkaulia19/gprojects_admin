@@ -118,17 +118,6 @@ class UserController extends Controller
 
         $item = User::findOrFail($id);
 
-        //Validate
-        $request->validate([
-            'roleId' => 'required',
-            'name' => 'required',
-            'nik' => 'required|min:16|numeric',
-            'username' => 'required|min:4',
-            'password' => 'required|min:6',
-            'email' => 'required|email',
-            'phone' => 'required|min:11|numeric'
-        ]);
-
         $item->update($data);
         return redirect()->route('users.index')->with('updated', 'User updated successfully!');
     }
